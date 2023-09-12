@@ -1,0 +1,163 @@
+#=================================================================
+# Create a custom list of files using script: \include_exclude\cli_custom_list_engine.pas.
+#
+# FLG_INC:  The color of the include flag
+# FLG_EXC: The color of the exclude flag (if files are included then excluded)
+#
+# INC_EXT: Extension for inclusion (Global Search)
+# INC_PTH: Path for inclusion (Global Search)
+# INC_SIG: Signature for inclusion (Regex Search)
+#
+# EXC_EXT: Excluded extensions (Regex Search)
+# EXC_FNM: Excluded filenames (Regex Search)
+#
+# GLOBAL Search Help
+#  **\*                   All items.
+#  **\*.*                 All items with an extension.
+#  **\*.jpg               All .jpg files.
+#  **\Penguins.jpg        All penguins.jpg.
+#  **\Penguins.*          All penguins with any extension.
+#  **\*guins*             All filenames containing guins.
+#  **\Pictures\**\*       All items with folder pictures in the path.
+#  **\Pictures\*'         Only the immediate children of Pictures.
+#
+#=================================================================
+
+SETTINGS:!!!====================================================!!!
+FLG_INC:Blue
+FLG_EXC:Orange
+
+EXC_EXT:!!!====================================================!!!
+EXC_EXT:AAC
+EXC_EXT:ASPX
+EXC_EXT:AVI
+EXC_EXT:CAB
+EXC_EXT:CDF-MS
+EXC_EXT:DLL
+EXC_EXT:EXE
+EXC_EXT:FFM
+EXC_EXT:ICO
+EXC_EXT:INF
+EXC_EXT:INI
+EXC_EXT:MOF
+EXC_EXT:MP3
+EXC_EXT:MPEG
+EXC_EXT:MPG
+EXC_EXT:MSI
+EXC_EXT:MSP
+EXC_EXT:MUI
+EXC_EXT:MUM
+EXC_EXT:NGR
+EXC_EXT:PSM1
+EXC_EXT:RESX
+EXC_EXT:SWM
+EXC_EXT:THL
+EXC_EXT:TTC
+EXC_EXT:TTF
+EXC_EXT:VDM
+EXC_EXT:VRG
+EXC_EXT:WAV
+EXC_EXT:WIM
+EXC_EXT:WMV
+
+EXC_FNM:!!!====================================================!!!
+EXC_FNM:eula\.(doc|rtf|pdf|txt)
+EXC_FNM:iphoneupdater\.log
+EXC_FNM:iplicense\.txt
+EXC_FNM:license
+EXC_FNM:license\.(htm|rtf|txt)
+EXC_FNM:readme\.(txt|rtf)
+
+INC_EXT:!!!====================================================!!!
+INC_EXT:AI
+INC_EXT:ASD
+INC_EXT:BAK
+INC_EXT:BMP
+INC_EXT:DB
+INC_EXT:DWG
+INC_EXT:EDB
+INC_EXT:GIF
+INC_EXT:HEIC
+INC_EXT:HEIF
+INC_EXT:JPE
+INC_EXT:JPEG
+INC_EXT:JPG
+INC_EXT:JSON
+INC_EXT:LNK
+INC_EXT:MYO
+INC_EXT:olk1*
+INC_EXT:PNG
+INC_EXT:PSD
+INC_EXT:SNT
+INC_EXT:SQL
+INC_EXT:SQLITE
+INC_EXT:TAR
+INC_EXT:TBZ
+INC_EXT:TGZ
+INC_EXT:TZ
+
+INC_PTH:!!!====================================================!!!
+INC_PTH:**\$RECYCLE.BIN\**\*
+INC_PTH:**\APPDATA\LOCAL\APPLE COMPUTER\SAFARI\**\*
+INC_PTH:**\APPDATA\LOCAL\DROPBOX\**\*
+INC_PTH:**\APPDATA\LOCAL\GOOGLE\CHROME\**\*
+INC_PTH:**\APPDATA\LOCAL\GOOGLE\DRIVE\**\*
+INC_PTH:**\APPDATA\LOCAL\GOOGLE\DRIVEFS\**\*
+INC_PTH:**\APPDATA\LOCAL\MICROSOFT\WINDOWS\HISTORY\**\*
+INC_PTH:**\APPDATA\LOCAL\MICROSOFT\WINDOWS\IECOMPATCACHE\**\*
+INC_PTH:**\APPDATA\LOCAL\MICROSOFT\WINDOWS\IECOMPATUACACHE\**\*
+INC_PTH:**\APPDATA\LOCAL\MICROSOFT\WINDOWS\IEDOWNLOADHISTORY\**\*
+INC_PTH:**\APPDATA\LOCAL\MICROSOFT\WINDOWS\INETCACHE\**\*
+INC_PTH:**\APPDATA\LOCAL\MICROSOFT\WINDOWS\INETCOOKIES\**\*
+INC_PTH:**\APPDATA\LOCAL\MICROSOFT\WINDOWS\TEMPORARY INTERNET FILES\**\*
+INC_PTH:**\APPDATA\LOCAL\MOZILLA\**\*
+INC_PTH:**\APPDATA\LOCAL\PACKAGES\**\*
+INC_PTH:**\APPDATA\ROAMING\APPLE COMPUTER\SAFARI\**\*
+INC_PTH:**\APPDATA\ROAMING\MICROSOFT\PROTECT\**\*
+INC_PTH:**\APPDATA\ROAMING\MICROSOFT\SKYPE FOR DESKTOP\**\*
+INC_PTH:**\APPDATA\ROAMING\MICROSOFT\WINDOWS\RECENT\**\*
+INC_PTH:**\APPDATA\ROAMING\MOZILLA\FIREFOX\PROFILES\**\*
+INC_PTH:**\APPDATA\ROAMING\SKYPE\**\*
+INC_PTH:**\APPDATA\ROAMING\TERACOPY\**\*
+INC_PTH:**\APPLICATION DATA\MOZILLA\FIREFOX\PROFILES\**\*
+INC_PTH:**\APPLICATION DATA\SKYPE\**\*
+INC_PTH:**\APPLICATION\SKYPE\**\*
+INC_PTH:**\history
+INC_PTH:**\history.plist
+INC_PTH:**\index.dat
+INC_PTH:**\LOCAL SETTINGS\APPLICATION DATA\GOOGLE\CHROME\USER DATA\**\*
+INC_PTH:**\LOCAL SETTINGS\HISTORY\**\*
+INC_PTH:**\LOCAL SETTINGS\TEMPORARY INTERNET FILES\**\*
+INC_PTH:**\MOZILLA\FIREFOX\**\*
+INC_PTH:**\places.sqlite
+INC_PTH:**\RECYCLER\**\*
+INC_PTH:**\suspendstate.plist
+INC_PTH:**\webcachev01.dat
+INC_PTH:**\WINDOWS\PREFETCH\**\*
+INC_PTH:**\eula.rtf
+
+INC_SIG:!!!====================================================!!!
+INC_SIG:ASD
+INC_SIG:AutoCAD DWG
+INC_SIG:Bmp
+INC_SIG:Exchange Database
+INC_SIG:Gif
+INC_SIG:HEIF
+INC_SIG:JPG
+INC_SIG:JSON
+INC_SIG:LNK
+INC_SIG:MYOB
+INC_SIG:Photoshop
+INC_SIG:Plist (Binary)
+INC_SIG:PNG
+INC_SIG:SNT
+INC_SIG:SQlite
+INC_SIG:Sqlite SHM
+
+
+
+
+
+
+
+

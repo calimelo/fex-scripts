@@ -1,0 +1,105 @@
+#=================================================================
+# Create a custom list of files using script: \include_exclude\cli_custom_list_engine.pas.
+#
+# FLG_INC:  The color of the include flag
+# FLG_EXC: The color of the exclude flag (if files are included then excluded)
+#
+# INC_EXT: Extension for inclusion (Global Search)
+# INC_PTH: Path for inclusion (Global Search)
+# INC_SIG: Signature for inclusion (Regex Search)
+#
+# EXC_EXT: Excluded extensions (Regex Search)
+# EXC_FNM: Excluded filenames (Regex Search)
+#
+# GLOBAL Search Help
+#  **\*                   All items.
+#  **\*.*                 All items with an extension.
+#  **\*.jpg               All .jpg files.
+#  **\Penguins.jpg        All penguins.jpg.
+#  **\Penguins.*          All penguins with any extension.
+#  **\*guins*             All filenames containing guins.
+#  **\Pictures\**\*       All items with folder pictures in the path.
+#  **\Pictures\*'         Only the immediate children of Pictures.
+#
+#=================================================================
+
+SETTINGS:!!!====================================================!!!
+FLG_INC:Red
+FLG_EXC:Orange
+
+EXC_EXT:!!!====================================================!!!
+
+EXC_FNM:!!!====================================================!!!
+EXC_FNM:eula\.(doc|rtf|pdf|txt)
+EXC_FNM:iphoneupdater\.log
+EXC_FNM:iplicense\.txt
+EXC_FNM:license
+EXC_FNM:license\.(htm|rtf|txt)
+EXC_FNM:readme\.(txt|rtf)
+
+INC_EXT:!!!====================================================!!!
+INC_EXT:7Z
+INC_EXT:7ZIP
+INC_EXT:ACCD
+INC_EXT:ACCDB
+INC_EXT:CSV
+INC_EXT:DBX
+INC_EXT:DOC
+INC_EXT:DOCM
+INC_EXT:DOCX
+INC_EXT:DOT
+INC_EXT:DOTM
+INC_EXT:EML
+INC_EXT:GDOC
+INC_EXT:MBOX
+INC_EXT:MDB
+INC_EXT:MSG
+INC_EXT:NSF
+INC_EXT:ODC
+INC_EXT:ODP
+INC_EXT:ODS
+INC_EXT:ODT
+INC_EXT:ONE
+INC_EXT:OST
+INC_EXT:PDF
+INC_EXT:PPS
+INC_EXT:PPT
+INC_EXT:PPTX
+INC_EXT:PST
+INC_EXT:PUB
+INC_EXT:RAR
+INC_EXT:RTF
+INC_EXT:TXT
+INC_EXT:VCF
+INC_EXT:VDX
+INC_EXT:VSD
+INC_EXT:VSS
+INC_EXT:VST
+INC_EXT:VSW
+INC_EXT:VSX
+INC_EXT:WK1
+INC_EXT:WK2
+INC_EXT:WK3
+INC_EXT:WK4
+INC_EXT:WPD
+INC_EXT:WPS
+INC_EXT:XLM
+INC_EXT:XLS
+INC_EXT:XLSB
+INC_EXT:XLSM
+INC_EXT:XLSX
+INC_EXT:XLT
+INC_EXT:ZIP
+
+INC_PTH:!!!====================================================!!!
+INC_PTH:**\APPDATA\ROAMING\THUNDERBIRD\**\*
+
+INC_SIG:!!!====================================================!!!
+
+
+
+
+
+
+
+

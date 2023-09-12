@@ -1,0 +1,78 @@
+# Enter regex search words one per line.
+((1[0-7])|[1-9])([\x2D\x20\x5F\x2B]|(%20))?y(ea)?r\.?s?\.?([\x2D\x20\x5F\x2B]|(%20))?old
+(?i)((one)|(two)|(three)|(four(teen)?)|(five)|(six(teen)?)|(seven(teen)?)|(eight)|(nine)|(ten)|(eleven)|(twelve)|(thirteen)|(fifteen))([\x2D\x20\x5F\x2B]|(%20))?y(ea)?r\.?s?\.?([\x2D\x20\x5F\x2B]|(%20))?old
+(?i)\bpedo\b
+(?i)\bPTHC\b
+(?i)a\.b\.p\.e\.p\.t\.
+(?i)alt\.binaries
+(?i)alt\.binaries\.pictures\.erotica
+(?i)babyj
+(?i)babyshi
+(?i)bambina
+(?i)Black Cat Lolita Photo Series
+(?i)Blackcat
+(?i)Child Rape
+(?i)child[\s\S]?[\s]?(love|porn|rape|sex)
+(?i)childfugga
+(?i)Childgod
+(?i)Childplay
+(?i)Children Forced to Porn
+(?i)Children of God
+(?i)Childrens Playground
+(?i)daddy[\s\S]?[\s]?fuck
+(?i)ddoggporn
+(?i)early teen
+(?i)Fantastic Site
+(?i)Forchild
+(?i)gay[\s\S]?[\s]?boy
+(?i)hairless
+(?i)hard[\s\S]?[\s]?core[\s\S]?[\s]?teen
+(?i)Hussyfan
+(?i)incest
+(?i)Innocent Lolita
+(?i)loli
+(?i)Just Grown Up
+(?i)kdquality
+(?i)kiddy
+(?i)kiddy[\s\S]?[\s]?porn
+(?i)kinder
+(?i)kinderkutje
+(?i)liluplanet
+(?i)lolihard
+(?i)lolita Hardcore
+(?i)lolita Land
+(?i)lolita World
+(?i)lolita
+(?i)nabokov
+(?i)naked[\s\S]?[\s]?(child|boy|girl|kid)
+(?i)nympho
+(?i)masterbat
+(?i)mylola
+(?i)pedoland
+(?i)pedophile
+(?i)pedophilia
+(?i)penetrat
+(?i)pre[\s\S]?[\s]?teen
+(?i)pre[\s\S]?[\s]?pubescent
+(?i)pretty\s*(boy|girl|kid)
+(?i)r@ygold
+(?i)rizmastar
+(?i)school[\s\S]?(boy|girl)[\s\S]?porn
+(?i)teen[\s\S]?[\s]?hard[\s\S]?[\s]?core
+(?i)tight\s*teasers
+(?i)tihij
+(?i)tiny.?street
+(?i)tinygirls
+(?i)tinylove
+(?i)toddlercon
+(?i)under\s*age
+(?i)underage[\s\S]?[\s]?(child|boy|girl|kid)
+(?i)username@http://
+(?i)vladmodel
+(?i)yamad
+(?i)young[\s\S]?[\s]?slut
+(?i)young[\s\S]?[\s]?virgin
+(?i)zofilia
+(?i)zoofilia
+(?i)zoophilia
+(?i)zsweeboys

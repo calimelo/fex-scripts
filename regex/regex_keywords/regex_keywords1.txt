@@ -1,0 +1,4 @@
+# Enter regex search words one per line.
+(?i)penguin
+(?i)koala
+(?i)MicrosoftSolitaire
