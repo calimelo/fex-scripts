@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TXML version="2">
+    <metadata>
+        <title>Title</title>
+        <description>Description</description>
+    </metadata>
+    <task classname="TCommandTask_Root" caption="Root Task">
+        <!-- READ DATASTORE -->
+        <task classname="TCommandTask_DataStore" caption="FileSystem" module="FileSystem">
+            <task classname="TCommandTask_Parallel" caption="Process in Parallel" enabled="True">
+                <task classname="TCommandTask_SearchforKnownISOTracks" caption="Search for Known ISO Tracks" enabled="True"/>
+                <task classname="TCommandTask_SearchforKnownMBR" caption="Search for Known MBRs">
+                    <task classname="TCommandTask_SearchforKnownFS" caption="Search for FileSystems"/>
+                </task>
+            </task>
+            <!-- EXPORT CSV -->
+            <task classname="TCommandTask_ExportEntryList" caption="CSV - Export File List" enabled="True" filename="%CASE_PATH%Exported\File_List.csv">
+                <!-- Setup Export Columns -->
+                <colhandler name="ExportEntryList" ver="44">
+                    <!-- 0 -->
+                    <col class="TColumnDataStoreField" field_type="11" meta_alias="@BLANK" meta_name="@BLANK">
+                        <xmldata mindate="1899-12-30T00:00:00Z" maxdate="1899-12-30T00:00:00Z" index="0" visible="True" maxwidth="2048" minwidth="0" width="250" sortmode="0" sort="0" alignment="0" header_alignment="0" header="Blank" style="0" issearchable="True" formatstring="%s" image_enbabled="False" image_functionname="" font_style="0" font_color="536870911" font_functionname="" font_enabled="False" color_functionname="" color_enabled="False" color="536870911"/>
+                    </col>
+                    <!-- 1 -->
+                    <col class="TColumnDataStoreField" field_name="NAME">
+                        <xmldata mindate="1899-12-30T00:00:00Z" maxdate="1899-12-30T00:00:00Z" index="1" visible="True" maxwidth="2048" minwidth="0" width="250" sortmode="0" sort="0" alignment="0" header_alignment="0" header="Filename" style="0" issearchable="True" formatstring="%s" image_enbabled="False" image_functionname="" font_style="0" font_color="536870911" font_functionname="" font_enabled="False" color_functionname="" color_enabled="False" color="536870911"/>
+                    </col>
+                    <!-- 2 -->
+                    <col class="TColumnDataStoreField" field_name="EXT">
+                        <xmldata mindate="1899-12-30T00:00:00Z" maxdate="1899-12-30T00:00:00Z" index="2" visible="True" maxwidth="2048" minwidth="0" width="60" sortmode="0" sort="0" alignment="0" header_alignment="0" header="Extension" style="0" issearchable="True" formatstring="%s" image_enbabled="False" image_functionname="" font_style="0" font_color="536870911" font_functionname="" font_enabled="False" color_functionname="" color_enabled="False" color="536870911"/>
+                    </col>
+                    <!-- 3 -->
+                    <col class="TFlagColumn" field_name="FLAG">
+                        <xmldata mindate="1899-12-30T00:00:00Z" maxdate="1899-12-30T00:00:00Z" index="3" visible="True" maxwidth="2048" minwidth="0" width="100" sortmode="0" sort="0" alignment="0" header_alignment="0" header="Flags" style="1" issearchable="True" formatstring="%d" image_enbabled="False" image_functionname="" font_style="0" font_color="536870911" font_functionname="" font_enabled="False" color_functionname="" color_enabled="False" color="536870911"/>
+                    </col>
+                    <!-- 4 -->
+                    <col class="TColumnDataStoreField" field_type="2" meta_alias="Hash (MD5)" meta_name="Hash (MD5)">
+                        <xmldata mindate="1899-12-30T00:00:00Z" maxdate="1899-12-30T00:00:00Z" index="4" visible="True" maxwidth="2048" minwidth="0" width="200" sortmode="0" sort="0" alignment="0" header_alignment="0" header="Hash (MD5)" style="0" issearchable="True" formatstring="0x%x" image_enbabled="False" image_functionname="" font_style="0" font_color="536870911" font_functionname="" font_enabled="False" color_functionname="" color_enabled="False" color="536870911"/>
+                    </col>
+                    <!-- 5 -->
+                    <col class="TColumnDataStoreField" field_type="2" meta_alias="Hash (SHA1)" meta_name="Hash (SHA1)">
+                        <xmldata mindate="1899-12-30T00:00:00Z" maxdate="1899-12-30T00:00:00Z" index="5" visible="True" maxwidth="2048" minwidth="0" width="200" sortmode="0" sort="0" alignment="0" header_alignment="0" header="Hash (SHA1)" style="0" issearchable="True" formatstring="0x%x" image_enbabled="False" image_functionname="" font_style="0" font_color="536870911" font_functionname="" font_enabled="False" color_functionname="" color_enabled="False" color="536870911"/>
+                    </col>
+                    <!-- 6 -->
+                    <col class="TColumnDataStoreField" field_type="2" meta_alias="Hash (SHA256)" meta_name="Hash (SHA256)">
+                        <xmldata mindate="1899-12-30T00:00:00Z" maxdate="1899-12-30T00:00:00Z" index="6" visible="True" maxwidth="2048" minwidth="0" width="200" sortmode="0" sort="0" alignment="0" header_alignment="0" header="Hash (SHA256)" style="0" issearchable="True" formatstring="0x%x" image_enbabled="False" image_functionname="" font_style="0" font_color="536870911" font_functionname="" font_enabled="False" color_functionname="" color_enabled="False" color="536870911"/>
+                    </col>
+                    <!-- 7 -->
+                    <col class="TColumnDataStoreField" field_type="2" meta_alias="Hash (CRC32)" meta_name="Hash (CRC32)">
+                        <xmldata mindate="1899-12-30T00:00:00Z" maxdate="1899-12-30T00:00:00Z" index="7" visible="True" maxwidth="2048" minwidth="0" width="200" sortmode="0" sort="0" alignment="0" header_alignment="0" header="Hash (CRC32)" style="0" issearchable="True" formatstring="0x%x" image_enbabled="False" image_functionname="" font_style="0" font_color="536870911" font_functionname="" font_enabled="False" color_functionname="" color_enabled="False" color="536870911"/>
+                    </col>
+                    <!-- 8 -->
+                    <col class="TColumnDataStoreField" field_name="DIR">
+                        <xmldata mindate="1899-12-30T00:00:00Z" maxdate="1899-12-30T00:00:00Z" index="8" visible="True" maxwidth="2048" minwidth="0" width="200" sortmode="0" sort="0" alignment="0" header_alignment="0" header="Path" style="0" issearchable="True" formatstring="%s" image_enbabled="False" image_functionname="" font_style="0" font_color="536870911" font_functionname="" font_enabled="False" color_functionname="" color_enabled="False" color="536870911"/>
+                    </col>
+                    <!-- 9 -->
+                    <col class="TColumnDataStoreField" field_name="ATTR">
+                        <xmldata mindate="1899-12-30T00:00:00Z" maxdate="1899-12-30T00:00:00Z" index="9" visible="True" maxwidth="2048" minwidth="0" width="85" sortmode="0" sort="0" alignment="0" header_alignment="0" header="Attributes" style="0" issearchable="True" formatstring="%s" image_enbabled="False" image_functionname="" font_style="0" font_color="536870911" font_functionname="" font_enabled="False" color_functionname="" color_enabled="False" color="536870911"/>
+                    </col>
+                    <!-- 10 -->
+                    <col class="TColumnDataStoreField" field_name="LOGICAL_SIZE">
+                        <xmldata mindate="1899-12-30T00:00:00Z" maxdate="1899-12-30T00:00:00Z" index="10" visible="True" maxwidth="2048" minwidth="0" width="100" sortmode="0" sort="0" alignment="1" header_alignment="0" header="Logical Size" style="0" issearchable="True" formatstring="%d" image_enbabled="False" image_functionname="" font_style="0" font_color="536870911" font_functionname="" font_enabled="False" color_functionname="" color_enabled="False" color="536870911"/>
+                    </col>
+                    <!-- 11 -->
+                    <col class="TColumnDataStoreField" field_name="PHYSICAL_SIZE">
+                        <xmldata mindate="1899-12-30T00:00:00Z" maxdate="1899-12-30T00:00:00Z" index="11" visible="True" maxwidth="2048" minwidth="0" width="100" sortmode="0" sort="0" alignment="1" header_alignment="0" header="Physical Size" style="0" issearchable="True" formatstring="%d" image_enbabled="False" image_functionname="" font_style="0" font_color="536870911" font_functionname="" font_enabled="False" color_functionname="" color_enabled="False" color="536870911"/>
+                    </col>
+                    <!-- 12 -->
+                    <col class="TColumnDataStoreField" field_name="MODIFIED_DATE">
+                        <xmldata mindate="1899-12-30T00:00:00Z" maxdate="1899-12-30T00:00:00Z" index="12" visible="True" maxwidth="2048" minwidth="0" width="135" sortmode="0" sort="0" alignment="0" header_alignment="0" header="Modified" style="0" issearchable="True" formatstring="c" image_enbabled="False" image_functionname="" font_style="0" font_color="536870911" font_functionname="" font_enabled="False" color_functionname="" color_enabled="False" color="536870911"/>
+                    </col>
+                    <!-- 13 -->
+                    <col class="TColumnDataStoreField" field_name="CREATED_DATE">
+                        <xmldata mindate="1899-12-30T00:00:00Z" maxdate="1899-12-30T00:00:00Z" index="13" visible="True" maxwidth="2048" minwidth="0" width="135" sortmode="0" sort="0" alignment="0" header_alignment="0" header="Created" style="0" issearchable="True" formatstring="c" image_enbabled="False" image_functionname="" font_style="0" font_color="536870911" font_functionname="" font_enabled="False" color_functionname="" color_enabled="False" color="536870911"/>
+                    </col>
+                    <!-- 14 -->
+                    <col class="TColumnDataStoreField" field_name="ACCESSED_DATE">
+                        <xmldata mindate="1899-12-30T00:00:00Z" maxdate="1899-12-30T00:00:00Z" index="14" visible="True" maxwidth="2048" minwidth="0" width="135" sortmode="0" sort="0" alignment="0" header_alignment="0" header="Accessed" style="0" issearchable="True" formatstring="c" image_enbabled="False" image_functionname="" font_style="0" font_color="536870911" font_functionname="" font_enabled="False" color_functionname="" color_enabled="False" color="536870911"/>
+                    </col>
+                    <!-- 15 -->
+                    <col class="TColumnDataStoreField" field_name="BOOKMARK_GROUP">
+                        <xmldata mindate="1899-12-30T00:00:00Z" maxdate="1899-12-30T00:00:00Z" index="15" visible="True" maxwidth="2048" minwidth="0" width="200" sortmode="0" sort="0" alignment="0" header_alignment="0" header="Bookmark Folder" style="0" issearchable="True" formatstring="%s" image_enbabled="False" image_functionname="" font_style="0" font_color="536870911" font_functionname="" font_enabled="False" color_functionname="" color_enabled="False" color="536870911"/>
+                    </col>
+                    <!-- 16 -->
+                    <col class="TColumnDataStoreField" field_name="ID">
+                        <xmldata mindate="1899-12-30T00:00:00Z" maxdate="1899-12-30T00:00:00Z" index="16" visible="True" maxwidth="2048" minwidth="0" width="100" sortmode="0" sort="0" alignment="1" header_alignment="0" header="Bates #" style="0" issearchable="True" formatstring="%d" image_enbabled="False" image_functionname="" font_style="0" font_color="536870911" font_functionname="" font_enabled="False" color_functionname="" color_enabled="False" color="536870911"/>
+                    </col>
+                    <!-- 17 -->
+                    <col class="TColumnDataStoreField" field_name="BIAS_TIME">
+                        <xmldata mindate="1899-12-30T00:00:00Z" maxdate="1899-12-30T00:00:00Z" index="17" visible="True" maxwidth="2048" minwidth="0" width="100" sortmode="0" sort="0" alignment="1" header_alignment="0" header="BIAS Time" style="0" issearchable="True" formatstring="%d" image_enbabled="False" image_functionname="" font_style="0" font_color="536870911" font_functionname="" font_enabled="False" color_functionname="" color_enabled="False" color="536870911"/>
+                    </col>
+                    <!-- 18 -->
+                    <col class="TColumnDataStoreField" field_name="ISBOOKMARKED">
+                        <xmldata mindate="1899-12-30T00:00:00Z" maxdate="1899-12-30T00:00:00Z" index="18" visible="True" maxwidth="2048" minwidth="0" width="40" sortmode="0" sort="0" alignment="0" header_alignment="0" header="Bookmarked" style="0" issearchable="True" formatstring="[NO|YES]" image_enbabled="False" image_functionname="" font_style="0" font_color="536870911" font_functionname="" font_enabled="False" color_functionname="" color_enabled="False" color="536870911"/>
+                    </col>
+                    <!-- 19 -->
+                    <col class="TColumnDataStoreField" field_name="BYTESTART">
+                        <xmldata mindate="1899-12-30T00:00:00Z" maxdate="1899-12-30T00:00:00Z" index="19" visible="True" maxwidth="2048" minwidth="0" width="80" sortmode="0" sort="0" alignment="1" header_alignment="0" header="Byte Start" style="0" issearchable="True" formatstring="%d" image_enbabled="False" image_functionname="" font_style="0" font_color="536870911" font_functionname="" font_enabled="False" color_functionname="" color_enabled="False" color="536870911"/>
+                    </col>
+                    <!-- 20 -->
+                    <col class="TClassificationColumn" field_name="CLASSIFICATION">
+                        <xmldata mindate="1899-12-30T00:00:00Z" maxdate="1899-12-30T00:00:00Z" index="20" visible="True" maxwidth="2048" minwidth="0" width="100" sortmode="0" sort="0" alignment="1" header_alignment="0" header="Classification" style="1" issearchable="True" formatstring="%d" image_enbabled="False" image_functionname="" font_style="0" font_color="536870911" font_functionname="" font_enabled="False" color_functionname="" color_enabled="False" color="536870911"/>
+                    </col>
+                    <!-- 21 -->
+                    <col class="TColumnDataStoreField" field_name="DATA_SIZE">
+                        <xmldata mindate="1899-12-30T00:00:00Z" maxdate="1899-12-30T00:00:00Z" index="21" visible="True" maxwidth="2048" minwidth="0" width="100" sortmode="0" sort="0" alignment="1" header_alignment="0" header="Data Size" style="0" issearchable="True" formatstring="%d" image_enbabled="False" image_functionname="" font_style="0" font_color="536870911" font_functionname="" font_enabled="False" color_functionname="" color_enabled="False" color="536870911"/>
+                    </col>
+                    <!-- 22 -->
+                    <col class="TColumnDataStoreField" field_name="DIR_LEVEL">
+                        <xmldata mindate="1899-12-30T00:00:00Z" maxdate="1899-12-30T00:00:00Z" index="22" visible="True" maxwidth="2048" minwidth="0" width="100" sortmode="0" sort="0" alignment="1" header_alignment="0" header="Directory Level" style="0" issearchable="True" formatstring="%d" image_enbabled="False" image_functionname="" font_style="0" font_color="536870911" font_functionname="" font_enabled="False" color_functionname="" color_enabled="False" color="536870911"/>
+                    </col>
+                    <!-- 23 -->
+                    <col class="TColumnDataStoreField" field_name="FILE_CAT">
+                        <xmldata mindate="1899-12-30T00:00:00Z" maxdate="1899-12-30T00:00:00Z" index="23" visible="True" maxwidth="2048" minwidth="0" width="70" sortmode="0" sort="0" alignment="0" header_alignment="0" header="File Category" style="0" issearchable="True" formatstring="%s" image_enbabled="False" image_functionname="" font_style="0" font_color="536870911" font_functionname="" font_enabled="False" color_functionname="" color_enabled="False" color="536870911"/>
+                    </col>
+                    <!-- 24 -->
+                    <col class="TColumnDataStoreField" field_name="FILE_TYPE">
+                        <xmldata mindate="1899-12-30T00:00:00Z" maxdate="1899-12-30T00:00:00Z" index="24" visible="True" maxwidth="2048" minwidth="0" width="200" sortmode="0" sort="0" alignment="0" header_alignment="0" header="File Signature" style="0" issearchable="True" formatstring="%s" image_enbabled="False" image_functionname="" font_style="0" font_color="536870911" font_functionname="" font_enabled="False" color_functionname="" color_enabled="False" color="536870911"/>
+                    </col>
+                    <!-- 25 -->
+                    <col class="TColumnDataStoreField" field_name="HASHSET_CAT">
+                        <xmldata mindate="1899-12-30T00:00:00Z" maxdate="1899-12-30T00:00:00Z" index="25" visible="True" maxwidth="2048" minwidth="0" width="200" sortmode="0" sort="0" alignment="0" header_alignment="0" header="HashSet Category" style="0" issearchable="True" formatstring="%s" image_enbabled="False" image_functionname="" font_style="0" font_color="536870911" font_functionname="" font_enabled="False" color_functionname="" color_enabled="False" color="536870911"/>
+                    </col>
+                    <!-- 26 -->
+                    <col class="TColumnDataStoreField" field_name="HASHSET_IDENT">
+                        <xmldata mindate="1899-12-30T00:00:00Z" maxdate="1899-12-30T00:00:00Z" index="26" visible="True" maxwidth="2048" minwidth="0" width="200" sortmode="0" sort="0" alignment="0" header_alignment="0" header="HashSet Identified As" style="0" issearchable="True" formatstring="%s" image_enbabled="False" image_functionname="" font_style="0" font_color="536870911" font_functionname="" font_enabled="False" color_functionname="" color_enabled="False" color="536870911"/>
+                    </col>
+                    <!-- 27 -->
+                    <col class="TColumnDataStoreField" field_name="HASHSET">
+                        <xmldata mindate="1899-12-30T00:00:00Z" maxdate="1899-12-30T00:00:00Z" index="27" visible="True" maxwidth="2048" minwidth="0" width="200" sortmode="0" sort="0" alignment="0" header_alignment="0" header="HashSet" style="0" issearchable="True" formatstring="%s" image_enbabled="False" image_functionname="" font_style="0" font_color="536870911" font_functionname="" font_enabled="False" color_functionname="" color_enabled="False" color="536870911"/>
+                    </col>
+                    <!-- 28 -->
+                    <col class="TColumnDataStoreField" field_name="INTACT_SIZE">
+                        <xmldata mindate="1899-12-30T00:00:00Z" maxdate="1899-12-30T00:00:00Z" index="28" visible="True" maxwidth="2048" minwidth="0" width="100" sortmode="0" sort="0" alignment="1" header_alignment="0" header="Intact Size" style="0" issearchable="True" formatstring="%d" image_enbabled="False" image_functionname="" font_style="0" font_color="536870911" font_functionname="" font_enabled="False" color_functionname="" color_enabled="False" color="536870911"/>
+                    </col>
+                    <!-- 29 -->
+                    <col class="TColumnDataStoreField" field_name="ISCOMPRESSED">
+                        <xmldata mindate="1899-12-30T00:00:00Z" maxdate="1899-12-30T00:00:00Z" index="29" visible="True" maxwidth="2048" minwidth="0" width="40" sortmode="0" sort="0" alignment="0" header_alignment="0" header="IsCompressed" style="0" issearchable="True" formatstring="[NO|YES]" image_enbabled="False" image_functionname="" font_style="0" font_color="536870911" font_functionname="" font_enabled="False" color_functionname="" color_enabled="False" color="536870911"/>
+                    </col>
+                    <!-- 30 -->
+                    <col class="TColumnDataStoreField" field_name="ISDELETED">
+                        <xmldata mindate="1899-12-30T00:00:00Z" maxdate="1899-12-30T00:00:00Z" index="30" visible="True" maxwidth="2048" minwidth="0" width="40" sortmode="0" sort="0" alignment="0" header_alignment="0" header="IsDeleted" style="0" issearchable="True" formatstring="[NO|YES]" image_enbabled="False" image_functionname="" font_style="0" font_color="536870911" font_functionname="" font_enabled="False" color_functionname="" color_enabled="False" color="536870911"/>
+                    </col>
+                    <!-- 31 -->
+                    <col class="TColumnDataStoreField" field_name="ISDIRECTORY">
+                        <xmldata mindate="1899-12-30T00:00:00Z" maxdate="1899-12-30T00:00:00Z" index="31" visible="True" maxwidth="2048" minwidth="0" width="40" sortmode="0" sort="0" alignment="0" header_alignment="0" header="IsDirectory" style="0" issearchable="True" formatstring="[NO|YES]" image_enbabled="False" image_functionname="" font_style="0" font_color="536870911" font_functionname="" font_enabled="False" color_functionname="" color_enabled="False" color="536870911"/>
+                    </col>
+                    <!-- 32 -->
+                    <col class="TColumnDataStoreField" field_name="ISENCRYPTED">
+                        <xmldata mindate="1899-12-30T00:00:00Z" maxdate="1899-12-30T00:00:00Z" index="32" visible="True" maxwidth="2048" minwidth="0" width="40" sortmode="0" sort="0" alignment="0" header_alignment="0" header="IsEncrypted" style="0" issearchable="True" formatstring="[NO|YES]" image_enbabled="False" image_functionname="" font_style="0" font_color="536870911" font_functionname="" font_enabled="False" color_functionname="" color_enabled="False" color="536870911"/>
+                    </col>
+                    <!-- 33 -->
+                    <col class="TColumnDataStoreField" field_name="ISFREESPACE">
+                        <xmldata mindate="1899-12-30T00:00:00Z" maxdate="1899-12-30T00:00:00Z" index="33" visible="True" maxwidth="2048" minwidth="0" width="40" sortmode="0" sort="0" alignment="0" header_alignment="0" header="IsFreeSpace" style="0" issearchable="True" formatstring="[NO|YES]" image_enbabled="False" image_functionname="" font_style="0" font_color="536870911" font_functionname="" font_enabled="False" color_functionname="" color_enabled="False" color="536870911"/>
+                    </col>
+                    <!-- 34 -->
+                    <col class="TColumnDataStoreField" field_name="ISSYSTEM">
+                        <xmldata mindate="1899-12-30T00:00:00Z" maxdate="1899-12-30T00:00:00Z" index="34" visible="True" maxwidth="2048" minwidth="0" width="40" sortmode="0" sort="0" alignment="0" header_alignment="0" header="IsSystem" style="0" issearchable="True" formatstring="[NO|YES]" image_enbabled="False" image_functionname="" font_style="0" font_color="536870911" font_functionname="" font_enabled="False" color_functionname="" color_enabled="False" color="536870911"/>
+                    </col>
+                    <!-- 35 -->
+                    <col class="TColumnDataStoreField" field_name="MODIFIED_RECORD_DATE">
+                        <xmldata mindate="1899-12-30T00:00:00Z" maxdate="1899-12-30T00:00:00Z" index="35" visible="True" maxwidth="2048" minwidth="0" width="135" sortmode="0" sort="0" alignment="0" header_alignment="0" header="Modified Record" style="0" issearchable="True" formatstring="c" image_enbabled="False" image_functionname="" font_style="0" font_color="536870911" font_functionname="" font_enabled="False" color_functionname="" color_enabled="False" color="536870911"/>
+                    </col>
+                    <!-- 36 -->
+                    <col class="TColumnDataStoreField" field_name="PARENT_NAME">
+                        <xmldata mindate="1899-12-30T00:00:00Z" maxdate="1899-12-30T00:00:00Z" index="36" visible="True" maxwidth="2048" minwidth="0" width="200" sortmode="0" sort="0" alignment="0" header_alignment="0" header="Parent Folder" style="0" issearchable="True" formatstring="%s" image_enbabled="False" image_functionname="" font_style="0" font_color="536870911" font_functionname="" font_enabled="False" color_functionname="" color_enabled="False" color="536870911"/>
+                    </col>
+                    <!-- 37 -->
+                    <col class="TColumnDataStoreField" field_name="PARENT_LOCATION">
+                        <xmldata mindate="1899-12-30T00:00:00Z" maxdate="1899-12-30T00:00:00Z" index="37" visible="True" maxwidth="2048" minwidth="0" width="100" sortmode="0" sort="0" alignment="1" header_alignment="0" header="Parent Location" style="0" issearchable="True" formatstring="%d" image_enbabled="False" image_functionname="" font_style="0" font_color="536870911" font_functionname="" font_enabled="False" color_functionname="" color_enabled="False" color="536870911"/>
+                    </col>
+                    <!-- 38 -->
+                    <col class="TColumnDataStoreField" field_name="RECORD_NUMBER">
+                        <xmldata mindate="1899-12-30T00:00:00Z" maxdate="1899-12-30T00:00:00Z" index="38" visible="True" maxwidth="2048" minwidth="0" width="100" sortmode="0" sort="0" alignment="1" header_alignment="0" header="Record #" style="0" issearchable="True" formatstring="%d" image_enbabled="False" image_functionname="" font_style="0" font_color="536870911" font_functionname="" font_enabled="False" color_functionname="" color_enabled="False" color="536870911"/>
+                    </col>
+                    <!-- 39 -->
+                    <col class="TColumnDataStoreField" field_name="RECORDLOCATION">
+                        <xmldata mindate="1899-12-30T00:00:00Z" maxdate="1899-12-30T00:00:00Z" index="39" visible="True" maxwidth="2048" minwidth="0" width="80" sortmode="0" sort="0" alignment="1" header_alignment="0" header="Record Location" style="0" issearchable="True" formatstring="%d" image_enbabled="False" image_functionname="" font_style="0" font_color="536870911" font_functionname="" font_enabled="False" color_functionname="" color_enabled="False" color="536870911"/>
+                    </col>
+                    <!-- 40 -->
+                    <col class="TColumnDataStoreField" field_name="SECTORSTART">
+                        <xmldata mindate="1899-12-30T00:00:00Z" maxdate="1899-12-30T00:00:00Z" index="40" visible="True" maxwidth="2048" minwidth="0" width="80" sortmode="0" sort="0" alignment="1" header_alignment="0" header="Sector Start" style="0" issearchable="True" formatstring="%d" image_enbabled="False" image_functionname="" font_style="0" font_color="536870911" font_functionname="" font_enabled="False" color_functionname="" color_enabled="False" color="536870911"/>
+                    </col>
+                    <!-- 41 -->
+                    <col class="TColumnDataStoreField" field_name="VSS Color">
+                        <xmldata mindate="1899-12-30T00:00:00Z" maxdate="1899-12-30T00:00:00Z" index="41" visible="True" maxwidth="2048" minwidth="0" width="40" sortmode="0" sort="0" alignment="1" header_alignment="0" header="VSS Color" style="0" issearchable="True" formatstring="%d" image_enbabled="False" image_functionname="" font_style="0" font_color="536870911" font_functionname="" font_enabled="False" color_functionname="" color_enabled="False" color="536870911"/>
+                    </col>
+                    <!-- 42 -->
+                    <col class="TColumnDataStoreField" field_name="VSS Date">
+                        <xmldata mindate="1899-12-30T00:00:00Z" maxdate="1899-12-30T00:00:00Z" index="42" visible="True" maxwidth="2048" minwidth="0" width="135" sortmode="0" sort="0" alignment="0" header_alignment="0" header="VSS Date" style="0" issearchable="True" formatstring="c" image_enbabled="False" image_functionname="" font_style="0" font_color="536870911" font_functionname="" font_enabled="False" color_functionname="" color_enabled="False" color="536870911"/>
+                    </col>
+                    <!-- 43 -->
+                    <col class="TColumnDataStoreField" field_name="VSS GUID">
+                        <xmldata mindate="1899-12-30T00:00:00Z" maxdate="1899-12-30T00:00:00Z" index="43" visible="True" maxwidth="2048" minwidth="0" width="200" sortmode="0" sort="0" alignment="0" header_alignment="0" header="VSS GUID" style="0" issearchable="True" formatstring="%s" image_enbabled="False" image_functionname="" font_style="0" font_color="536870911" font_functionname="" font_enabled="False" color_functionname="" color_enabled="False" color="536870911"/>
+                    </col>
+                    <!-- 44 -->
+                    <col class="TColumnDataStoreField" field_name="VSS ID">
+                        <xmldata mindate="1899-12-30T00:00:00Z" maxdate="1899-12-30T00:00:00Z" index="44" visible="True" maxwidth="2048" minwidth="0" width="100" sortmode="0" sort="0" alignment="1" header_alignment="0" header="VSS ID" style="0" issearchable="True" formatstring="%d" image_enbabled="False" image_functionname="" font_style="0" font_color="536870911" font_functionname="" font_enabled="False" color_functionname="" color_enabled="False" color="536870911"/>
+                    </col>
+                    <!-- 45 -->
+                    <col class="TColumnDataStoreField" field_name="VSS Volume">
+                        <xmldata mindate="1899-12-30T00:00:00Z" maxdate="1899-12-30T00:00:00Z" index="45" visible="True" maxwidth="2048" minwidth="0" width="200" sortmode="0" sort="0" alignment="0" header_alignment="0" header="VSS Volume" style="0" issearchable="True" formatstring="%s" image_enbabled="False" image_functionname="" font_style="0" font_color="536870911" font_functionname="" font_enabled="False" color_functionname="" color_enabled="False" color="536870911"/>
+                    </col>
+                    <!-- 46 -->
+                    <col class="TColumnDataStoreField" field_type="11" meta_alias="Exif 270: Description" meta_name="Exif 270: Description">
+                        <xmldata mindate="1899-12-30T00:00:00Z" maxdate="1899-12-30T00:00:00Z" index="46" visible="True" maxwidth="2048" minwidth="0" width="200" sortmode="0" sort="0" alignment="0" header_alignment="0" header="Exif 270: Description" style="0" issearchable="True" formatstring="%s" image_enbabled="False" image_functionname="" font_style="0" font_color="536870911" font_functionname="" font_enabled="False" color_functionname="" color_enabled="False" color="536870911"/>
+                    </col>
+                    <!-- 47 -->
+                    <col class="TColumnDataStoreField" field_type="11" meta_alias="Exif 271: Make" meta_name="Exif 271: Make">
+                        <xmldata mindate="1899-12-30T00:00:00Z" maxdate="1899-12-30T00:00:00Z" index="47" visible="True" maxwidth="2048" minwidth="0" width="200" sortmode="0" sort="0" alignment="0" header_alignment="0" header="Exif 271: Make" style="0" issearchable="True" formatstring="%s" image_enbabled="False" image_functionname="" font_style="0" font_color="536870911" font_functionname="" font_enabled="False" color_functionname="" color_enabled="False" color="536870911"/>
+                    </col>
+                    <!-- 48 -->
+                    <col class="TColumnDataStoreField" field_type="11" meta_alias="Exif 272: Device Model" meta_name="Exif 272: Device Model">
+                        <xmldata mindate="1899-12-30T00:00:00Z" maxdate="1899-12-30T00:00:00Z" index="48" visible="True" maxwidth="2048" minwidth="0" width="200" sortmode="0" sort="0" alignment="0" header_alignment="0" header="Exif 272: Device Model" style="0" issearchable="True" formatstring="%s" image_enbabled="False" image_functionname="" font_style="0" font_color="536870911" font_functionname="" font_enabled="False" color_functionname="" color_enabled="False" color="536870911"/>
+                    </col>
+                    <!-- 49 -->
+                    <col class="TColumnDataStoreField" field_type="11" meta_alias="Exif 274: Orientation" meta_name="Exif 274: Orientation">
+                        <xmldata mindate="1899-12-30T00:00:00Z" maxdate="1899-12-30T00:00:00Z" index="49" visible="True" maxwidth="2048" minwidth="0" width="200" sortmode="0" sort="0" alignment="0" header_alignment="0" header="Exif 274: Orientation" style="0" issearchable="True" formatstring="%s" image_enbabled="False" image_functionname="" font_style="0" font_color="536870911" font_functionname="" font_enabled="False" color_functionname="" color_enabled="False" color="536870911"/>
+                    </col>
+                    <!-- 50 -->
+                    <col class="TColumnDataStoreField" field_type="14" meta_alias="Exif 282: XResolution" meta_name="Exif 282: XResolution">
+                        <xmldata mindate="1899-12-30T00:00:00Z" maxdate="1899-12-30T00:00:00Z" index="50" visible="True" maxwidth="2048" minwidth="0" width="206" sortmode="0" sort="0" alignment="1" header_alignment="0" header="Exif 282: XResolution" style="0" issearchable="True" formatstring="%2.4n" image_enbabled="False" image_functionname="" font_style="0" font_color="536870911" font_functionname="" font_enabled="False" color_functionname="" color_enabled="False" color="536870911"/>
+                    </col>
+                    <!-- 51 -->
+                    <col class="TColumnDataStoreField" field_type="14" meta_alias="Exif 283: YResolution" meta_name="Exif 283: YResolution">
+                        <xmldata mindate="1899-12-30T00:00:00Z" maxdate="1899-12-30T00:00:00Z" index="51" visible="True" maxwidth="2048" minwidth="0" width="194" sortmode="0" sort="0" alignment="1" header_alignment="0" header="Exif 283: YResolution" style="0" issearchable="True" formatstring="%2.4n" image_enbabled="False" image_functionname="" font_style="0" font_color="536870911" font_functionname="" font_enabled="False" color_functionname="" color_enabled="False" color="536870911"/>
+                    </col>
+                    <!-- 52 -->
+                    <col class="TColumnDataStoreField" field_type="11" meta_alias="Exif 305: Software" meta_name="Exif 305: Software">
+                        <xmldata mindate="1899-12-30T00:00:00Z" maxdate="1899-12-30T00:00:00Z" index="52" visible="True" maxwidth="2048" minwidth="0" width="200" sortmode="0" sort="0" alignment="0" header_alignment="0" header="Exif 305: Software" style="0" issearchable="True" formatstring="%s" image_enbabled="False" image_functionname="" font_style="0" font_color="536870911" font_functionname="" font_enabled="False" color_functionname="" color_enabled="False" color="536870911"/>
+                    </col>
+                    <!-- 53 -->
+                    <col class="TColumnDataStoreField" field_type="11" meta_alias="Exif 306: Date/Time" meta_name="Exif 306: Date/Time">
+                        <xmldata mindate="1899-12-30T00:00:00Z" maxdate="1899-12-30T00:00:00Z" index="53" visible="True" maxwidth="2048" minwidth="0" width="200" sortmode="0" sort="0" alignment="0" header_alignment="0" header="Exif 306: Date/Time" style="0" issearchable="True" formatstring="%s" image_enbabled="False" image_functionname="" font_style="0" font_color="536870911" font_functionname="" font_enabled="False" color_functionname="" color_enabled="False" color="536870911"/>
+                    </col>
+                    <!-- 54 -->
+                    <col class="TColumnDataStoreField" field_type="11" meta_alias="Exif 315: Artist" meta_name="Exif 315: Artist">
+                        <xmldata mindate="1899-12-30T00:00:00Z" maxdate="1899-12-30T00:00:00Z" index="54" visible="True" maxwidth="2048" minwidth="0" width="200" sortmode="0" sort="0" alignment="0" header_alignment="0" header="Exif 315: Artist" style="0" issearchable="True" formatstring="%s" image_enbabled="False" image_functionname="" font_style="0" font_color="536870911" font_functionname="" font_enabled="False" color_functionname="" color_enabled="False" color="536870911"/>
+                    </col>
+                    <!-- 55 -->
+                    <col class="TColumnDataStoreField" field_type="11" meta_alias="Exif 33432: Copyright" meta_name="Exif 33432: Copyright">
+                        <xmldata mindate="1899-12-30T00:00:00Z" maxdate="1899-12-30T00:00:00Z" index="55" visible="True" maxwidth="2048" minwidth="0" width="200" sortmode="0" sort="0" alignment="0" header_alignment="0" header="Exif 33432: Copyright" style="0" issearchable="True" formatstring="%s" image_enbabled="False" image_functionname="" font_style="0" font_color="536870911" font_functionname="" font_enabled="False" color_functionname="" color_enabled="False" color="536870911"/>
+                    </col>
+                    <!-- 56 -->
+                    <col class="TColumnDataStoreField" field_type="11" meta_alias="Exif 36867: DateTimeOriginal" meta_name="Exif 36867: DateTimeOriginal">
+                        <xmldata mindate="1899-12-30T00:00:00Z" maxdate="1899-12-30T00:00:00Z" index="56" visible="True" maxwidth="2048" minwidth="0" width="200" sortmode="0" sort="0" alignment="0" header_alignment="0" header="Exif 36867: DateTimeOriginal" style="0" issearchable="True" formatstring="%s" image_enbabled="False" image_functionname="" font_style="0" font_color="536870911" font_functionname="" font_enabled="False" color_functionname="" color_enabled="False" color="536870911"/>
+                    </col>
+                    <!-- 57 -->
+                    <col class="TColumnDataStoreField" field_type="11" meta_alias="Exif Type" meta_name="Exif Type">
+                        <xmldata mindate="1899-12-30T00:00:00Z" maxdate="1899-12-30T00:00:00Z" index="57" visible="True" maxwidth="2048" minwidth="0" width="200" sortmode="0" sort="0" alignment="0" header_alignment="0" header="Exif Type" style="0" issearchable="True" formatstring="%s" image_enbabled="False" image_functionname="" font_style="0" font_color="536870911" font_functionname="" font_enabled="False" color_functionname="" color_enabled="False" color="536870911"/>
+                    </col>
+                    <!-- 58 -->
+                    <col class="TColumnDataStoreField" field_type="16" meta_alias="LNK Target Accessed (UTC)" meta_name="LNK Target Accessed (UTC)">
+                        <xmldata mindate="1899-12-30T00:00:00Z" maxdate="1899-12-30T00:00:00Z" index="58" visible="True" maxwidth="2048" minwidth="0" width="135" sortmode="0" sort="0" alignment="0" header_alignment="0" header="LNK Target Accessed (UTC)" style="0" issearchable="True" formatstring="c" image_enbabled="False" image_functionname="" font_style="0" font_color="536870911" font_functionname="" font_enabled="False" color_functionname="" color_enabled="False" color="536870911"/>
+                    </col>
+                    <!-- 59 -->
+                    <col class="TColumnDataStoreField" field_type="16" meta_alias="LNK Target Created (UTC)" meta_name="LNK Target Created (UTC)">
+                        <xmldata mindate="1899-12-30T00:00:00Z" maxdate="1899-12-30T00:00:00Z" index="59" visible="True" maxwidth="2048" minwidth="0" width="135" sortmode="0" sort="0" alignment="0" header_alignment="0" header="LNK Target Created (UTC)" style="0" issearchable="True" formatstring="c" image_enbabled="False" image_functionname="" font_style="0" font_color="536870911" font_functionname="" font_enabled="False" color_functionname="" color_enabled="False" color="536870911"/>
+                    </col>
+                    <!-- 60 -->
+                    <col class="TColumnDataStoreField" field_type="11" meta_alias="LNK Target Device Name" meta_name="LNK Target Device Name">
+                        <xmldata mindate="1899-12-30T00:00:00Z" maxdate="1899-12-30T00:00:00Z" index="60" visible="True" maxwidth="2048" minwidth="0" width="200" sortmode="0" sort="0" alignment="0" header_alignment="0" header="LNK Target Device Name" style="0" issearchable="True" formatstring="%s" image_enbabled="False" image_functionname="" font_style="0" font_color="536870911" font_functionname="" font_enabled="False" color_functionname="" color_enabled="False" color="536870911"/>
+                    </col>
+                    <!-- 61 -->
+                    <col class="TColumnDataStoreField" field_type="11" meta_alias="LNK Target Drive Type" meta_name="LNK Target Drive Type">
+                        <xmldata mindate="1899-12-30T00:00:00Z" maxdate="1899-12-30T00:00:00Z" index="61" visible="True" maxwidth="2048" minwidth="0" width="200" sortmode="0" sort="0" alignment="0" header_alignment="0" header="LNK Target Drive Type" style="0" issearchable="True" formatstring="%s" image_enbabled="False" image_functionname="" font_style="0" font_color="536870911" font_functionname="" font_enabled="False" color_functionname="" color_enabled="False" color="536870911"/>
+                    </col>
+                    <!-- 62 -->
+                    <col class="TColumnDataStoreField" field_type="11" meta_alias="LNK Target Local Base Path" meta_name="LNK Target Local Base Path">
+                        <xmldata mindate="1899-12-30T00:00:00Z" maxdate="1899-12-30T00:00:00Z" index="62" visible="True" maxwidth="2048" minwidth="0" width="200" sortmode="0" sort="0" alignment="0" header_alignment="0" header="LNK Target Local Base Path" style="0" issearchable="True" formatstring="%s" image_enbabled="False" image_functionname="" font_style="0" font_color="536870911" font_functionname="" font_enabled="False" color_functionname="" color_enabled="False" color="536870911"/>
+                    </col>
+                    <!-- 63 -->
+                    <col class="TColumnDataStoreField" field_type="16" meta_alias="LNK Target Modified (UTC)" meta_name="LNK Target Modified (UTC)">
+                        <xmldata mindate="1899-12-30T00:00:00Z" maxdate="1899-12-30T00:00:00Z" index="63" visible="True" maxwidth="2048" minwidth="0" width="135" sortmode="0" sort="0" alignment="0" header_alignment="0" header="LNK Target Modified (UTC)" style="0" issearchable="True" formatstring="c" image_enbabled="False" image_functionname="" font_style="0" font_color="536870911" font_functionname="" font_enabled="False" color_functionname="" color_enabled="False" color="536870911"/>
+                    </col>
+                    <!-- 64 -->
+                    <col class="TColumnDataStoreField" field_type="11" meta_alias="LNK Target Net Name" meta_name="LNK Target Net Name">
+                        <xmldata mindate="1899-12-30T00:00:00Z" maxdate="1899-12-30T00:00:00Z" index="64" visible="True" maxwidth="2048" minwidth="0" width="200" sortmode="0" sort="0" alignment="0" header_alignment="0" header="LNK Target Net Name" style="0" issearchable="True" formatstring="%s" image_enbabled="False" image_functionname="" font_style="0" font_color="536870911" font_functionname="" font_enabled="False" color_functionname="" color_enabled="False" color="536870911"/>
+                    </col>
+                    <!-- 65 -->
+                    <col class="TColumnDataStoreField" field_type="10" meta_alias="LNK Target Size" meta_name="LNK Target Size">
+                        <xmldata mindate="1899-12-30T00:00:00Z" maxdate="1899-12-30T00:00:00Z" index="65" visible="True" maxwidth="2048" minwidth="0" width="100" sortmode="0" sort="0" alignment="1" header_alignment="0" header="LNK Target Size" style="0" issearchable="True" formatstring="%d" image_enbabled="False" image_functionname="" font_style="0" font_color="536870911" font_functionname="" font_enabled="False" color_functionname="" color_enabled="False" color="536870911"/>
+                    </col>
+                    <!-- 66 -->
+                    <col class="TColumnDataStoreField" field_type="11" meta_alias="LNK Target Volume Label" meta_name="LNK Target Volume Label">
+                        <xmldata mindate="1899-12-30T00:00:00Z" maxdate="1899-12-30T00:00:00Z" index="66" visible="True" maxwidth="2048" minwidth="0" width="200" sortmode="0" sort="0" alignment="0" header_alignment="0" header="LNK Target Volume Label" style="0" issearchable="True" formatstring="%s" image_enbabled="False" image_functionname="" font_style="0" font_color="536870911" font_functionname="" font_enabled="False" color_functionname="" color_enabled="False" color="536870911"/>
+                    </col>
+                    <!-- 67 -->
+                    <col class="TColumnDataStoreField" field_type="11" meta_alias="LNK Target Volume Serial" meta_name="LNK Target Volume Serial">
+                        <xmldata mindate="1899-12-30T00:00:00Z" maxdate="1899-12-30T00:00:00Z" index="67" visible="True" maxwidth="2048" minwidth="0" width="200" sortmode="0" sort="0" alignment="0" header_alignment="0" header="LNK Target Volume Serial" style="0" issearchable="True" formatstring="%s" image_enbabled="False" image_functionname="" font_style="0" font_color="536870911" font_functionname="" font_enabled="False" color_functionname="" color_enabled="False" color="536870911"/>
+                    </col>
+                    <!-- 68 -->
+                    <col class="TColumnDataStoreField" field_type="11" meta_alias="MS Author" meta_name="MS Author">
+                        <xmldata mindate="1899-12-30T00:00:00Z" maxdate="1899-12-30T00:00:00Z" index="68" visible="True" maxwidth="2048" minwidth="0" width="200" sortmode="0" sort="0" alignment="0" header_alignment="0" header="MS Author" style="0" issearchable="True" formatstring="%s" image_enbabled="False" image_functionname="" font_style="0" font_color="536870911" font_functionname="" font_enabled="False" color_functionname="" color_enabled="False" color="536870911"/>
+                    </col>
+                    <!-- 69 -->
+                    <col class="TColumnDataStoreField" field_type="11" meta_alias="MS Company" meta_name="MS Company">
+                        <xmldata mindate="1899-12-30T00:00:00Z" maxdate="1899-12-30T00:00:00Z" index="69" visible="True" maxwidth="2048" minwidth="0" width="200" sortmode="0" sort="0" alignment="0" header_alignment="0" header="MS Company" style="0" issearchable="True" formatstring="%s" image_enbabled="False" image_functionname="" font_style="0" font_color="536870911" font_functionname="" font_enabled="False" color_functionname="" color_enabled="False" color="536870911"/>
+                    </col>
+                    <!-- 70 -->
+                    <col class="TColumnDataStoreField" field_type="16" meta_alias="MS Created (UTC)" meta_name="MS Created (UTC)">
+                        <xmldata mindate="1899-12-30T00:00:00Z" maxdate="1899-12-30T00:00:00Z" index="70" visible="True" maxwidth="2048" minwidth="0" width="135" sortmode="0" sort="0" alignment="0" header_alignment="0" header="MS Created (UTC)" style="0" issearchable="True" formatstring="c" image_enbabled="False" image_functionname="" font_style="0" font_color="536870911" font_functionname="" font_enabled="False" color_functionname="" color_enabled="False" color="536870911"/>
+                    </col>
+                    <!-- 71 -->
+                    <col class="TColumnDataStoreField" field_type="9" meta_alias="MS Edit Time" meta_name="MS Edit Time">
+                        <xmldata mindate="1899-12-30T00:00:00Z" maxdate="1899-12-30T00:00:00Z" index="71" visible="True" maxwidth="2048" minwidth="0" width="100" sortmode="0" sort="0" alignment="1" header_alignment="0" header="MS Edit Time" style="0" issearchable="True" formatstring="%d" image_enbabled="False" image_functionname="" font_style="0" font_color="536870911" font_functionname="" font_enabled="False" color_functionname="" color_enabled="False" color="536870911"/>
+                    </col>
+                    <!-- 72 -->
+                    <col class="TColumnDataStoreField" field_type="11" meta_alias="MS Last Saved by" meta_name="MS Last Saved by">
+                        <xmldata mindate="1899-12-30T00:00:00Z" maxdate="1899-12-30T00:00:00Z" index="72" visible="True" maxwidth="2048" minwidth="0" width="200" sortmode="0" sort="0" alignment="0" header_alignment="0" header="MS Last Saved by" style="0" issearchable="True" formatstring="%s" image_enbabled="False" image_functionname="" font_style="0" font_color="536870911" font_functionname="" font_enabled="False" color_functionname="" color_enabled="False" color="536870911"/>
+                    </col>
+                    <!-- 73 -->
+                    <col class="TColumnDataStoreField" field_type="16" meta_alias="MS Modified (UTC)" meta_name="MS Modified (UTC)">
+                        <xmldata mindate="1899-12-30T00:00:00Z" maxdate="1899-12-30T00:00:00Z" index="73" visible="True" maxwidth="2048" minwidth="0" width="135" sortmode="0" sort="0" alignment="0" header_alignment="0" header="MS Modified (UTC)" style="0" issearchable="True" formatstring="c" image_enbabled="False" image_functionname="" font_style="0" font_color="536870911" font_functionname="" font_enabled="False" color_functionname="" color_enabled="False" color="536870911"/>
+                    </col>
+                    <!-- 74 -->
+                    <col class="TColumnDataStoreField" field_type="16" meta_alias="MS Printed (UTC)" meta_name="MS Printed (UTC)">
+                        <xmldata mindate="1899-12-30T00:00:00Z" maxdate="1899-12-30T00:00:00Z" index="74" visible="True" maxwidth="2048" minwidth="0" width="135" sortmode="0" sort="0" alignment="0" header_alignment="0" header="MS Printed (UTC)" style="0" issearchable="True" formatstring="c" image_enbabled="False" image_functionname="" font_style="0" font_color="536870911" font_functionname="" font_enabled="False" color_functionname="" color_enabled="False" color="536870911"/>
+                    </col>
+                    <!-- 75 -->
+                    <col class="TColumnDataStoreField" field_type="9" meta_alias="MS Revision" meta_name="MS Revision">
+                        <xmldata mindate="1899-12-30T00:00:00Z" maxdate="1899-12-30T00:00:00Z" index="75" visible="True" maxwidth="2048" minwidth="0" width="100" sortmode="0" sort="0" alignment="1" header_alignment="0" header="MS Revision" style="0" issearchable="True" formatstring="%d" image_enbabled="False" image_functionname="" font_style="0" font_color="536870911" font_functionname="" font_enabled="False" color_functionname="" color_enabled="False" color="536870911"/>
+                    </col>
+                    <!-- 76 -->
+                    <col class="TColumnDataStoreField" field_type="11" meta_alias="MS Subject" meta_name="MS Subject">
+                        <xmldata mindate="1899-12-30T00:00:00Z" maxdate="1899-12-30T00:00:00Z" index="76" visible="True" maxwidth="2048" minwidth="0" width="200" sortmode="0" sort="0" alignment="0" header_alignment="0" header="MS Subject" style="0" issearchable="True" formatstring="%s" image_enbabled="False" image_functionname="" font_style="0" font_color="536870911" font_functionname="" font_enabled="False" color_functionname="" color_enabled="False" color="536870911"/>
+                    </col>
+                    <!-- 77 -->
+                    <col class="TColumnDataStoreField" field_type="11" meta_alias="MS Title" meta_name="MS Title">
+                        <xmldata mindate="1899-12-30T00:00:00Z" maxdate="1899-12-30T00:00:00Z" index="77" visible="True" maxwidth="2048" minwidth="0" width="200" sortmode="0" sort="0" alignment="0" header_alignment="0" header="MS Title" style="0" issearchable="True" formatstring="%s" image_enbabled="False" image_functionname="" font_style="0" font_color="536870911" font_functionname="" font_enabled="False" color_functionname="" color_enabled="False" color="536870911"/>
+                    </col>
+                    <!-- 78 -->
+                    <col class="TColumnDataStoreField" field_type="9" meta_alias="MS Word Count" meta_name="MS Word Count">
+                        <xmldata mindate="1899-12-30T00:00:00Z" maxdate="1899-12-30T00:00:00Z" index="78" visible="True" maxwidth="2048" minwidth="0" width="100" sortmode="0" sort="0" alignment="1" header_alignment="0" header="MS Word Count" style="0" issearchable="True" formatstring="%d" image_enbabled="False" image_functionname="" font_style="0" font_color="536870911" font_functionname="" font_enabled="False" color_functionname="" color_enabled="False" color="536870911"/>
+                    </col>
+                </colhandler>
+            </task>
+        </task>
+        <!-- SCRIPT: Check log files -->
+        <task classname="TCommandTask_Script" caption="Script - Check Log Files" enabled="true" filename="%APP_PATH%..\scripts\common\cli_check_log_files.pas"/>
+    </task>
+</TXML>

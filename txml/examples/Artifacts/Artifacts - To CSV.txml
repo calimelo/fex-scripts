@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TXML version="2">
+    <metadata>
+        <title>Artifacts To CSV</title>
+        <description>Extract artifacts and export to CSV.</description>
+    </metadata>
+    <task classname="TCommandTask_Root" caption="Root Task">
+        <task classname="TCommandTask_DataStore" caption="FileSystem" module="FileSystem">
+            <task classname="TCommandTask_Parallel" caption="Process in Parallel" enabled="True">
+                <task classname="TCommandTask_SearchforKnownISOTracks" caption="Search for Known ISO Tracks" enabled="True"/>
+                <task classname="TCommandTask_SearchforKnownMBR" caption="Search for Known MBRs">
+                    <task classname="TCommandTask_SearchforKnownFS" caption="Search for FileSystems"/>
+                </task>
+            </task>
+            <!-- SIGNATURE -->
+            <task classname="TCommandTask_FileTypeAnalysis" caption="Signature Analysis" enabled="True"/>
+            <!-- APPLE BACKUP -->
+            <task classname="TCommandTask_AppleBackup" caption="Apple Backup Identify" enabled="True"/>
+            <task classname="TCommandTask_ExportEntryList" caption="CSV - All Files" enabled="True" filename="%CASE_PATH%Reports\List of All Files.csv"/>
+            <!-- SCRIPT: ARTIFACTS -->
+            <task classname="TCommandTask_Script" caption="SCRIPT - Artifacts Browsers" enabled="True" filename="%APP_PATH%..\scripts\artifacts\Browsers.pas" params="PROCESSALL"/>
+            <task classname="TCommandTask_Script" caption="SCRIPT - Artifacts Carve URLs" enabled="True" filename="%APP_PATH%..\scripts\artifacts\Carve_URLs.pas" params="PROCESSALL"/>
+            <task classname="TCommandTask_Script" caption="SCRIPT - Artifacts Chat" enabled="True" filename="%APP_PATH%..\scripts\artifacts\Chat.pas" params="PROCESSALL"/>
+            <task classname="TCommandTask_Script" caption="SCRIPT - Artifacts Email" enabled="True" filename="%APP_PATH%..\scripts\artifacts\Email.pas" params="PROCESSALL"/>
+            <task classname="TCommandTask_Script" caption="SCRIPT - Artifacts Finance" enabled="True" filename="%APP_PATH%..\scripts\artifacts\Finance.pas" params="PROCESSALL"/>
+            <task classname="TCommandTask_Script" caption="SCRIPT - Artifacts Health" enabled="True" filename="%APP_PATH%..\scripts\artifacts\Health_Apps.pas" params="PROCESSALL"/>
+            <task classname="TCommandTask_Script" caption="SCRIPT - Artifacts Mobile" enabled="True" filename="%APP_PATH%..\scripts\artifacts\Mobile.pas" params="PROCESSALL"/>
+            <task classname="TCommandTask_Script" caption="SCRIPT - Artifacts Operating System" enabled="True" filename="%APP_PATH%..\scripts\artifacts\Operating_System.pas" params="PROCESSALL"/>
+            <task classname="TCommandTask_Script" caption="SCRIPT - Artifacts Operating System MAC" enabled="True" filename="%APP_PATH%..\scripts\artifacts\Operating_System_MAC.pas" params="PROCESSALL"/>
+            <task classname="TCommandTask_Script" caption="SCRIPT - Artifacts Social Media" enabled="True" filename="%APP_PATH%..\scripts\artifacts\Social_Media.pas" params="PROCESSALL"/>
+            <task classname="TCommandTask_Script" caption="SCRIPT - Artifacts Tracking" enabled="True" filename="%APP_PATH%..\scripts\artifacts\Tracking.pas" params="PROCESSALL"/>
+            <!-- SCRIPT: ARTIFACTS TO CSV -->
+            <task classname="TCommandTask_Script" caption="SCRIPT - Artifacts Export CSV" enabled="True" filename="%APP_PATH%..\scripts\artifacts\Artifacts_Export_CSV.pas" params=""/>
+        </task>
+        <!-- SCRIPT: Check log files -->
+        <task classname="TCommandTask_Script" caption="Script - Check Log Files" enabled="true" filename="%APP_PATH%..\scripts\common\cli_check_log_files.pas"/>
+    </task>
+</TXML>

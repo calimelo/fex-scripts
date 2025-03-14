@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TXML version="2">
+    <metadata>
+        <title>Multiple Tasks</title>
+        <description>Provides and example of different processing options.</description>
+    </metadata>
+    <task classname="TCommandTask_Root" caption="Root Task">
+        <task classname="TCommandTask_Parallel" caption="Process in Parallel" enabled="True">
+            <task classname="TCommandTask_VerifyDevice" caption="Verify Device Hashes" enabled="False" md5hash="True" sha1hash="False" sha256hash="False"/>
+            <task classname="TCommandTask_DataStore" caption="FileSystem" module="FileSystem">
+                <task classname="TCommandTask_Parallel" caption="Process in Parallel" enabled="True">
+                    <task classname="TCommandTask_SearchforKnownISOTracks" caption="Search for Known ISO Tracks" enabled="True"/>
+                    <task classname="TCommandTask_SearchforKnownMBR" caption="Search for Known MBRs">
+                        <task classname="TCommandTask_SearchforKnownFS" caption="Search for FileSystems"/>
+                    </task>
+                </task>
+                <!-- SIGNATURE -->
+                <task classname="TCommandTask_FileTypeAnalysis" caption="Signature Analysis" enabled="True"/>
+                <!-- APPLE BACKUP -->
+                <task classname="TCommandTask_AppleBackup" caption="Apple Backup Identify" enabled="True"/>
+                <task classname="TCommandTask_ExportEntryList" caption="CSV - All Files" enabled="True" filename="%CASE_PATH%Reports\List of All Files.csv"/>
+                <!-- FILTER AND EXPORT CSV: ENCRYPTED FILES -->
+                <task classname="TCommandTask_Filter" caption="FILTER - isEncrypted" enabled="True" filename="%APP_PATH%..\filters\by_is\filter_isencrypted.pas">
+                    <task classname="TCommandTask_ExportEntryList" caption="CSV - Encrypted Files" enabled="True" filename="%CASE_PATH%Reports\Encrypted_Files.csv"/>
+                </task>
+                <!-- SCRIPTS: TRIAGE -->
+                <task classname="TCommandTask_Parallel" caption="Process in Parallel" enabled="True">
+                    <task classname="TCommandTask_Script" caption="SCRIPT - Triage Registry" enabled="True" filename="%APP_PATH%..\scripts\triage\cli_triage_registry.pas"/>
+                    <task classname="TCommandTask_Script" caption="SCRIPT - Triage SAM User Accounts" enabled="True" filename="%APP_PATH%..\scripts\triage\cli_triage_sam_user_accounts.pas"/>
+                    <task classname="TCommandTask_Script" caption="SCRIPT - Triage USB Devices" enabled="True" filename="%APP_PATH%..\scripts\triage\cli_triage_usb_devices.pas"/>
+                    <task classname="TCommandTask_Script" caption="SCRIPT - Triage File System" enabled="True" filename="%APP_PATH%..\scripts\triage\cli_triage_file_system.pas"/>
+                </task>
+                <!-- REPORT: TRIAGE -->
+                <task classname="TCommandTask_ReportGenerator" caption="Triage Report" template="%APP_PATH%..\report_templates\cli_triage" saveasfile="%CASE_PATH%\reports\triage.pdf" enabled="True" minfilesize="0" maxfilesize="200"/>
+                <!-- FILTER AND EXPORT FILES: CUSTOM FILES -->
+                <task classname="TCommandTask_Filter" caption="FILTER - Extensions" enabled="True" filename="%APP_PATH%..\filters\by_custom\filter_extension_lizland.pas">
+                    <task classname="TCommandTask_ExportFiles" caption="Export Files" enabled="True" destinationfolder="%CASE_PATH%Exported\LizLand\" folderstructure="False" emptyfolders="True" saveassinglefile="False" savelogical="True" keepdatetimes="True" batesid="False" batessuffix="False" splitsizebytes="-1"/>
+                </task>
+                <!-- FILTER PST OST-->
+                <task classname="TCommandTask_Filter" caption="FILTER - PST OST" enabled="True" filename="%APP_PATH%..\filters\by_determined_signature\filter_determined_signature_pst_ost.pas">
+                    <!-- EXPORT CSV -->
+                    <task classname="TCommandTask_ExportEntryList" caption="CSV - PST OST Files" enabled="True" filename="%CASE_PATH%Reports\PST_OST_Files.csv"/>
+                    <!-- SENDTO -->
+                    <task classname="TCommandTask_SendTo" caption="Send To Module" enabled="True" module="Email">
+                        <task classname="TCommandTask_FileTypeAnalysis" caption="Signature Analysis" enabled="True"/>
+                        <!-- SEARCH FOR EMAIL -->
+                        <task classname="TCommandTask_SearchforEmails" caption="Search for Emails" enabled="True">
+                            <task classname="TCommandTask_KeywordSearchExternal" caption="Keyword Search - Email" enabled="True" filelimit="0" searchlimit="0" searchfileslack="True">
+                                <keywordfiles>
+                                    <keywords filename="%APP_PATH%..\keywords\keywords1.txt" enabled="True"/>
+                                </keywordfiles>
+                                <!-- KEYWORD SEARCH MODULE -->
+                                <task classname="TCommandTask_DataStore" caption="Keyword Search Module" module="Keywords">
+                                    <task classname="TCommandTask_ExportEntryList" caption="CSV - Email Keyword Search" enabled="True" filename="%CASE_PATH%Reports\Email Keyword Hits.csv"/>
+                                </task>
+                                <!-- EXPORT TO L01 -->
+                                <task classname="TCommandTask_ExportFilesL01" caption="Export L01 - Email" enabled="True" filename="%CASE_PATH%Exported\Email Keyword Hits.L01" segmentsize="20000" md5hash="True" sha1hash="False" sha256hash="False" compression="1" dirdata="False" examiner="Investigator" caseno="" desc="Email Keyword Hits" evidno="" notes="L01 Created by FEX CLI"/>
+                            </task>
+                            <!-- FILTER MESSAGES WITH ATTACHMENTS -->
+                            <task classname="TCommandTask_Filter" caption="FILTER - Email with Attachments" enabled="True" filename="%APP_PATH%..\filters\by_classname\filter_classname_email_attachments.pas">
+                                <task classname="TCommandTask_ExportEntryList" caption="CSV - Email with Attachments" enabled="True" filename="%CASE_PATH%Reports\Email with Attachments.csv">
+                                    <colhandler name="ExportEntryList" ver="44">
+                                        <col class="TColumnDataStoreField" field_name="SUBJECT">
+                                            <xmldata color="536870911" color_enabled="False" color_functionname="" font_enabled="False" font_functionname="" font_color="536870911" font_style="0" image_functionname="" image_enbabled="False" formatstring="%s" issearchable="True" style="0" header="Subject" header_alignment="0" alignment="0" sort="0" sortmode="0" width="500" minwidth="0" maxwidth="2048" visible="True" index="4" maxdate="1899-12-30T00:00:00Z" mindate="1899-12-30T00:00:00Z"/>
+                                        </col>
+                                        <col class="TColumnDataStoreField" field_name="SIZE">
+                                            <xmldata color="536870911" color_enabled="False" color_functionname="" font_enabled="False" font_functionname="" font_color="536870911" font_style="0" image_functionname="" image_enbabled="False" formatstring="%d" issearchable="True" style="0" header="Size" header_alignment="0" alignment="1" sort="0" sortmode="0" width="70" minwidth="0" maxwidth="2048" visible="True" index="13" maxdate="1899-12-30T00:00:00Z" mindate="1899-12-30T00:00:00Z"/>
+                                        </col>
+                                        <col class="TColumnDataStoreField" field_name="DIR">
+                                            <xmldata color="536870911" color_enabled="False" color_functionname="" font_enabled="False" font_functionname="" font_color="536870911" font_style="0" image_functionname="" image_enbabled="False" formatstring="%s" issearchable="True" style="0" header="Path" header_alignment="0" alignment="0" sort="0" sortmode="0" width="200" minwidth="0" maxwidth="2048" visible="True" index="14" maxdate="1899-12-30T00:00:00Z" mindate="1899-12-30T00:00:00Z"/>
+                                        </col>
+                                        <col class="TColumnDataStoreField" field_name="ID">
+                                            <xmldata color="536870911" color_enabled="False" color_functionname="" font_enabled="False" font_functionname="" font_color="536870911" font_style="0" image_functionname="" image_enbabled="False" formatstring="%d" issearchable="True" style="0" header="Bates #" header_alignment="0" alignment="1" sort="0" sortmode="0" width="100" minwidth="0" maxwidth="2048" visible="False" index="15" maxdate="1899-12-30T00:00:00Z" mindate="1899-12-30T00:00:00Z"/>
+                                        </col>
+                                    </colhandler>
+                                </task>
+                                <!-- EXPORT TO L01 -->
+                                <task classname="TCommandTask_Parallel" caption="Export L01" enabled="True">
+                                    <task classname="TCommandTask_ExportFilesL01" caption="Export L01 - Email with Attachments" enabled="True" filename="%CASE_PATH%Exported\Email with Attachments.L01" segmentsize="20000" md5hash="True" sha1hash="False" sha256hash="False" compression="1" dirdata="False" examiner="Investigator" caseno="" desc="Email with Attachments" evidno="" notes="L01 Created by FEX CLI"/>
+                                </task>
+                            </task>
+                        </task>
+                    </task>
+                </task>
+                <!-- FILTER GRAPHICS -->
+                <task classname="TCommandTask_Filter" caption="FILTER - PST OST" enabled="True" filename="%APP_PATH%..\filters\by_determined_signature\filter_determined_signature_graphics.pas">
+                    <!-- HASH -->
+                    <task classname="TCommandTask_CreateHash" caption="Hash All Files" enabled="True" md5="True" sha1="False" sha256="False" crc32="False" fuzzy="False" differential="False" photodna="False" forcecalc="False" findduplicates="False" minfilesize="0" maxfilesize="1024"/>
+                    <!-- HASH MATCH -->
+                    <task classname="TCommandTask_MatchHash" caption="Hash Match" enabled="True" hashmethod="0">
+                        <hashsets>
+                            <hashset filename="%APP_PATH%..\hashsets\samples\training\misc\Lizard_Landscapes.txt" enabled="True"/>
+                        </hashsets>
+                    </task>
+                    <!-- FILTER -->
+                    <task classname="TCommandTask_Filter" caption="Filter" enabled="True" filename="%APP_PATH%..\filters\by_hash_match\filter_hash_match_any.pas">
+                        <!-- SCRIPT: InList Count -->
+                        <task classname="TCommandTask_Script" caption="SCRIPT - InList Count" enabled="True" filename="%APP_PATH%..\scripts\common\cli_msg_inlist_count.pas"/>
+                        <!-- SCRIPT -->
+                        <task classname="TCommandTask_Script" caption="SCRIPT - Bookmark Hash Match" enabled="True" filename="%APP_PATH%..\scripts\bookmark\cli_bookmark_hash_match.pas"/>
+                    </task>
+                </task>
+            </task>
+        </task>
+        <task classname="TCommandTask_Script" caption="SCRIPT - Output Verification Results" enabled="True" filename="%APP_PATH%..\scripts\verify\cli_verify.pas" params="DO_NOT_VERIFY_IN_SCRIPT"/>
+        <task classname="TCommandTask_Script" caption="SCRIPT - Check Log Files" enabled="True" filename="%APP_PATH%..\scripts\common\cli_check_log_files.pas" params=""/>
+    </task>
+</TXML>

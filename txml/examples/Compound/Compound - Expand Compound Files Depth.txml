@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TXML version="2">
+    <metadata>
+        <title>Expand Compound Files and Sub Archives</title>
+        <description>Expand compound files. Expand sub-archives to specified depth.</description>
+    </metadata>
+    <task classname="TCommandTask_Root" caption="Root Task">
+        <task classname="TCommandTask_DataStore" caption="FileSystem" module="FileSystem">
+            <task classname="TCommandTask_Parallel" caption="Process in Parallel" enabled="True">
+                <task classname="TCommandTask_SearchforKnownISOTracks" caption="Search for Known ISO Tracks" enabled="True"/>
+                <task classname="TCommandTask_SearchforKnownMBR" caption="Search for Known MBRs">
+                    <task classname="TCommandTask_SearchforKnownFS" caption="Search for FileSystems"/>
+                </task>
+            </task>
+            <!-- SIGNATURE -->
+            <task classname="TCommandTask_FileTypeAnalysis" caption="Signature Analysis" enabled="True"/>
+            <!-- FILTER ARCHIVES AND EXPAND -->
+            <task classname="TCommandTask_Filter" caption="FILTER - Archives" enabled="true" filename="%APP_PATH%..\filters\by_custom\filter_custom_archives_1.pas">
+                <task classname="TCommandTask_ExpandCompoundFiles" caption="Expand Files" enabled="true"/>
+                <task classname="TCommandTask_Script" caption="SCRIPT - Expand Sub-Archives" enabled="true" filename="%APP_PATH%..\scripts\compound\cli_expand_compound_depth.pas" params=""/>
+            </task>
+        </task>
+        <!-- SCRIPT: Check log files -->
+        <task classname="TCommandTask_Script" caption="Script - Check Log Files" enabled="true" filename="%APP_PATH%..\scripts\common\cli_check_log_files.pas"/>
+    </task>
+</TXML>

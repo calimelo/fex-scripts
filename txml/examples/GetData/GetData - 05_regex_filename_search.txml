@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TXML version="2">
+    <metadata>
+        <title>File and Foldername Regex Search</title>
+        <description>File and foldername regex search using keyword import file.</description>
+    </metadata>
+    <task classname="TCommandTask_Root" caption="Root Task">
+        <task classname="TCommandTask_DataStore" caption="FileSystem" module="FileSystem">
+            <task classname="TCommandTask_Parallel" caption="Process in Parallel" enabled="True">
+                <task classname="TCommandTask_SearchforKnownISOTracks" caption="Search for Known ISO Tracks" enabled="True"/>
+                <task classname="TCommandTask_SearchforKnownMBR" caption="Search for Known MBRs">
+                    <task classname="TCommandTask_SearchforKnownFS" caption="Search for FileSystems"/>
+                </task>
+            </task>
+            <!-- SIGNATURE -->
+            <task classname="TCommandTask_FileTypeAnalysis" caption="Signature Analysis" enabled="True"/>
+            <!-- APPLE BACKUP -->
+            <task classname="TCommandTask_AppleBackup" caption="Apple Backup Identify" enabled="True"/>
+            <!-- SIGNATURE -->
+            <task classname="TCommandTask_FileTypeAnalysis" caption="Signature Analysis" enabled="True"/>
+            <!-- FILTER: Is Encrypted -->
+            <task classname="TCommandTask_Filter" caption="FILTER - isEncrypted" enabled="True" filename="%APP_PATH%..\filters\by_is\filter_isencrypted.pas">
+                <!-- CSV -->
+                <task classname="TCommandTask_ExportEntryList" caption="CSV - Encrypted Files" enabled="True" exportemptylist="False" filename="%CASE_PATH%Reports\Encrypted_Files.csv"/>
+                <!-- SCRIPT: Bookmark Encrypted -->
+                <task classname="TCommandTask_Script" caption="SCRIPT - Bookmark Encrypted" enabled="True" filename="%APP_PATH%..\scripts\bookmark\cli_bookmark_tlist.pas" params="&quot;Encrypted&quot;"/>
+            </task>
+            <!-- SCRIPT: Triage Registry -->
+            <task classname="TCommandTask_Script" caption="SCRIPT - Triage Registry" enabled="True" filename="%APP_PATH%..\scripts\triage\cli_triage_registry.pas"/>
+            <!-- SCRIPT: Triage SAM User Accounts -->
+            <task classname="TCommandTask_Script" caption="SCRIPT - Triage SAM User Accounts" enabled="True" filename="%APP_PATH%..\scripts\triage\cli_triage_sam_user_accounts.pas"/>
+            <!-- SCRIPT: Regex Folder and Filename Search. Pass the keywords filename (..\scripts\regex\regex_keywords\) using params="&quot;[filename]&quot;"-->
+            <task classname="TCommandTask_Script" caption="SCRIPT - Regex filename search" enabled="True" filename="%APP_PATH%..\scripts\regex\cli_regex_filename_search.pas" params="&quot;regex_keywords1.txt&quot;"/>
+            <!-- FILTER: Bookmarked 'Folder and Filename Regex Search' -->
+            <task classname="TCommandTask_Filter" caption="FILTER - Bookmarks" enabled="True" filename="%APP_PATH%..\filters\by_bookmark_folder\filter_bmfldr_Folder_and_Filename_Regex_Search.pas">
+                <task classname="TCommandTask_ExportEntryList" caption="CSV - Regex Search" enabled="True" exportemptylist="False" filename="%CASE_PATH%Reports\Folder and Filename Regex Search.csv"/>
+            </task>
+            <!-- REPORT -->
+            <task classname="TCommandTask_ReportGenerator" caption="Regex Search" template="%APP_PATH%..\report_templates\Folder and Filename Regex Search" saveasfile="%CASE_PATH%\reports\Folder and Filename Regex Search.pdf" enabled="True" blurifrequired="True" exportedblurifrequired="True"/>
+        </task>
+        <!-- SCRIPT: Check log files -->
+        <task classname="TCommandTask_Script" caption="SCRIPT - Check Log Files" enabled="True" filename="%APP_PATH%..\scripts\common\cli_check_log_files.pas" params=""/>
+    </task>
+</TXML>

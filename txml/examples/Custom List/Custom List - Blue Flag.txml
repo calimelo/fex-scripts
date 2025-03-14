@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TXML version="2">
+    <metadata>
+        <title>Custom List - Blue Flag</title>
+        <description>Triage scripts are run.
+        The script 'cli_custom_list_engine.pas' processes according to values in the specified 'INPUTFILE' file (located in the scripts 'settings' subfolder).
+        A 'Custom List' column is created and populated for filtering purposes.
+        Include files are flagged.
+        Included files are written to L01.
+        The OPENLOG value determines if the log files is opened on completion.</description>
+    </metadata>
+    <options>
+        <option type="string" name="INPUTFILE" value="custom_list_blue.txt"/>
+        <option type="constant" name="OPENLOG" value="True"/>
+    </options>
+    <task classname="TCommandTaskRoot" caption="Root Task">
+        <task classname="TCommandTaskDataStore" caption="FileSystem" datastore="FileSystem">
+            <task classname="TCommandTaskParallel" enabled="true" caption="Process in Parallel">
+                <task classname="TCommandTask_SearchforKnownISOTracks" enabled="true" caption="Search for Known ISO Tracks"/>
+                <task classname="TCommandTask_SearchforKnownMBR" caption="Search for Known MBRs">
+                    <task classname="TCommandTask_SearchforKnownFS" caption="Search for FileSystems"/>
+                </task>
+            </task>
+            <!-- SIGNATURE -->
+            <task classname="TCommandTask_FileTypeAnalysis" enabled="true" caption="Signature Analysis"/>
+            <!-- SCRIPT: Triage -->
+            <task classname="TCommandTaskParallel" enabled="true" caption="Process in Parallel">
+                <task classname="TCommandTask_Script" enabled="true" caption="SCRIPT - Triage Registry" filename="%APP_PATH%..\scripts\triage\cli_triage_registry.pas"/>
+                <task classname="TCommandTask_Script" enabled="true" caption="SCRIPT - Triage SAM User Accounts" filename="%APP_PATH%..\scripts\triage\cli_triage_sam_user_accounts.pas"/>
+                <task classname="TCommandTask_Script" enabled="true" caption="SCRIPT - Triage USB Devices" filename="%APP_PATH%..\scripts\triage\cli_triage_usb_devices.pas"/>
+                <task classname="TCommandTask_Script" enabled="true" caption="SCRIPT - Triage File System" filename="%APP_PATH%..\scripts\triage\cli_triage_file_system.pas"/>
+            </task>
+            <!-- REPORT -->
+            <task classname="TCommandTask_ReportGenerator" enabled="true" caption="Triage Report" template="%APP_PATH%..\report_templates\cli_triage" saveasfile="%CASE_PATH%\reports\triage.pdf" minfilesize="0" maxfilesize="200"/>
+            <!-- CSV -->
+            <task classname="TCommandTask_ExportEntryList" enabled="True" caption="CSV - All Files List" filename="%CASE_PATH%Reports\All Files List.csv"/>
+            <!-- SCRIPT -->
+            <task classname="TCommandTask_Script" enabled="True" caption="SCRIPT - Custom List" filename="%APP_PATH%..\scripts\include_exclude\cli_custom_list_engine.pas"/>
+            <!-- FILTER -->
+            <task classname="TCommandTask_Filter" enabled="True" caption="FILTER - Col. Custom List" filename="%APP_PATH%..\filters\by_column\filter_custom_list_column.pas">
+                <task classname="TCommandTask_ExportEntryList" enabled="True" caption="CSV - Col. Custom List" filename="%CASE_PATH%Reports\Custom_List_Include.csv"/>
+                <!-- EXPORT_L01 -->
+                <task classname="TCommandTask_ExportFilesL01" enabled="False" caption="Export to L01" caseno="CMD Line Export" compression="1" desc="FEX CLI Line Export" dirdata="true" evidno="" examiner="" filename="%CASE_PATH%Exported\Files_Export.L01" md5hash="true" notes="L01 Created by Forensic Explorer CMD Line" segmentsize="2000" sha1hash="true" sha256hash="false"/>
+            </task>
+        </task>
+        <!-- SCRIPT: Check log files -->
+        <task classname="TCommandTask_Script" enabled="True" caption="Script - Check Log Files" filename="%APP_PATH%..\scripts\common\cli_check_log_files.pas"/>
+    </task>
+</TXML>

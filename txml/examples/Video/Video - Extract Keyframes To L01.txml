@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TXML version="2">
+    <metadata>
+        <title>Expand Video Files</title>
+        <description>Expand video keyframes then write to L01</description>
+    </metadata>
+    <task classname="TCommandTask_Root" caption="Root Task">
+        <task classname="TCommandTask_DataStore" caption="FileSystem" module="FileSystem">
+            <task classname="TCommandTask_Parallel" caption="Process in Parallel" enabled="True">
+                <task classname="TCommandTask_SearchforKnownISOTracks" caption="Search for Known ISO Tracks" enabled="True"/>
+                <task classname="TCommandTask_SearchforKnownMBR" caption="Search for Known MBRs">
+                    <task classname="TCommandTask_SearchforKnownFS" caption="Search for FileSystems"/>
+                </task>
+            </task>
+            <!-- SIGNATURE -->
+            <task classname="TCommandTask_FileTypeAnalysis" caption="Signature Analysis" enabled="True"/>
+            <!-- FILTER VIDEOS -->
+            <task classname="TCommandTask_Filter" caption="Filter Videos" enabled="True" filename="%APP_PATH%..\filters\by_determined_signature\filter_determined_signature_video.pas">
+                <!-- EXPAND -->
+                <task classname="TCommandTask_ExpandCompoundFiles" caption="Expand Compound Files" description="" enabled="true"/>
+            </task>
+            <!-- FILTER VIDEO THUMBNAILS -->
+            <task classname="TCommandTask_Filter" caption="Filter Thumbnails" enabled="True" filename="%APP_PATH%..\filters\by_classname\filter_classname_keyframes.pas">
+                <!-- EXPORT L01 -->
+                <task classname="TCommandTask_ExportFilesL01" caption="Export to L01" caseno="CMD Line Export" compression="1" desc=" CMD Line Export" dirdata="False" enabled="True" evidno="" examiner="Investigator" filename="%CASE_PATH%Exported\Video_Keyframes.L01" md5hash="True" notes="L01 Created by Forensic Explorer CMD Line" segmentsize="2000" sha1hash="False" sha256hash="False"/>
+            </task>
+        </task>
+        <!-- SCRIPT: Check log files -->
+        <task classname="TCommandTask_Script" caption="Script - Check Log Files" enabled="true" filename="%APP_PATH%..\scripts\common\cli_check_log_files.pas"/>
+    </task>
+</TXML>

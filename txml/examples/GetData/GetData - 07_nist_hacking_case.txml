@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TXML version="2">
+    <metadata>
+        <title>Title</title>
+        <description>Description</description>
+    </metadata>
+    <task classname="TCommandTask_Root" caption="Root Task">
+        <task classname="TCommandTask_Parallel" caption="Process in Parallel" enabled="True">
+            <task classname="TCommandTask_VerifyDevice" caption="Verify Device Hashes" enabled="True" md5hash="True" sha1hash="False" sha256hash="False"/>
+            <task classname="TCommandTask_DataStore" caption="FileSystem" module="FileSystem">
+                <task classname="TCommandTask_Parallel" caption="Process in Parallel" enabled="True">
+                    <task classname="TCommandTask_SearchforKnownISOTracks" caption="Search for Known ISO Tracks" enabled="True"/>
+                    <task classname="TCommandTask_SearchforKnownMBR" caption="Search for Known MBRs">
+                        <task classname="TCommandTask_SearchforKnownFS" caption="Search for FileSystems"/>
+                    </task>
+                </task>
+                <!-- SIGNATURE -->
+                <task classname="TCommandTask_FileTypeAnalysis" caption="Signature Analysis" enabled="True"/>
+                <!-- HASH FILES -->
+                <task classname="TCommandTask_CreateHash" caption="Hash All Files" enabled="True" md5="True" sha1="False" sha256="False" crc32="False" fuzzy="False" differential="False" photodna="False" forcecalc="False" findduplicates="False" minfilesize="0" maxfilesize="1024"/>
+                <!-- SCRIPT -->
+                <task classname="TCommandTask_Script" caption="SCRIPT - NIST Validation" enabled="True" filename="%APP_PATH%..\scripts\validation\cli_validation_nist_hacking_case.pas"/>
+            </task>
+        </task>
+        <!-- SCRIPT: Check log files -->
+        <task classname="TCommandTask_Script" caption="Script - Check Log Files" enabled="true" filename="%APP_PATH%..\scripts\common\cli_check_log_files.pas"/>
+    </task>
+</TXML>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TXML version="2">
+    <metadata>
+        <title>Title</title>
+        <description>Description</description>
+    </metadata>
+    <task classname="TCommandTask_Root" caption="Root Task">
+        <task classname="TCommandTask_DataStore" caption="FileSystem" module="FileSystem">
+            <task classname="TCommandTask_Parallel" caption="Process in Parallel" enabled="True">
+                <task classname="TCommandTask_SearchforKnownISOTracks" caption="Search for Known ISO Tracks" enabled="True"/>
+                <task classname="TCommandTask_SearchforKnownMBR" caption="Search for Known MBRs">
+                    <task classname="TCommandTask_SearchforKnownFS" caption="Search for FileSystems"/>
+                </task>
+            </task>
+            <!-- FILTER -->
+            <task classname="TCommandTask_Filter" caption="FILTER - Keyword Search" enabled="True" filename="%APP_PATH%..\filters\for_keyword_search\filter_keyword_seach_no_freespace.pas">
+                <task classname="TCommandTask_KeywordSearchExternal" caption="Keyword Search" enabled="True" filelimit="0" searchlimit="0" searchfileslack="True">
+                    <keywordfiles>
+                        <keywords filename="%APP_PATH%..\keywords\keywords1.txt" enabled="True"/>
+                        <keywords filename="%APP_PATH%..\keywords\keywords2.txt" enabled="True"/>
+                        <keywords filename="%APP_PATH%..\keywords\keywords3.txt" enabled="True"/>
+                    </keywordfiles>
+                </task>
+            </task>
+        </task>
+        <!-- SCRIPT: Check log files -->
+        <task classname="TCommandTask_Script" caption="SCRIPT - Check Log Files" enabled="True" filename="%APP_PATH%..\scripts\common\cli_check_log_files.pas" params=""/>
+    </task>
+</TXML>

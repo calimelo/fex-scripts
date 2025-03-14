@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TXML version="2">
+    <metadata>
+        <title>Email Files and Attachments CSV</title>
+        <description>Creates a CSV of files and email attachments.'</description>
+    </metadata>
+    <task classname="TCommandTask_Root" caption="Root Task">
+        <task classname="TCommandTask_DataStore" caption="FileSystem" module="FileSystem">
+            <task classname="TCommandTask_Parallel" caption="Process in Parallel" enabled="True">
+                <task classname="TCommandTask_SearchforKnownISOTracks" caption="Search for Known ISO Tracks" enabled="True"/>
+                <task classname="TCommandTask_SearchforKnownMBR" caption="Search for Known MBRs">
+                    <task classname="TCommandTask_SearchforKnownFS" caption="Search for FileSystems"/>
+                </task>
+            </task>
+            <!-- SIGNATURE -->
+            <task classname="TCommandTask_FileTypeAnalysis" caption="Signature Analysis" enabled="True"/>
+            <!-- FILTER -->
+            <task classname="TCommandTask_Filter" caption="FILTER - Email by Best Known" enabled="True" filename="%APP_PATH%..\filters\by_best_known_signature\filter_best_known_signature_email.pas">
+                <task classname="TCommandTask_FileTypeAnalysis" caption="Signature Analysis - Determine Best Known" enabled="True"/>
+                <!-- FILTER -->
+                <task classname="TCommandTask_Filter" caption="FILTER - Email by Determined" enabled="True" filename="%APP_PATH%..\filters\by_determined_signature\filter_determined_signature_email.pas">
+                    <task classname="TCommandTask_ExportEntryList" caption="CSV - Email Files" enabled="True" filename="%CASE_PATH%Reports\List of Email Files.csv"/>
+                    <!-- SENDTO EMAIL MODULE -->
+                    <task classname="TCommandTask_SendTo" caption="Send To Module" enabled="True" module="Email">
+                        <!-- EMAIL MODULE -->
+                        <task classname="TCommandTask_DataStore" caption="Email Datastore" module="Email">
+                            <task classname="TCommandTask_SearchforEmails" caption="Search for Emails" enabled="True"/>
+                            <!-- FILTER -->
+                            <task classname="TCommandTask_Filter" caption="FILTER - Custom Filenames" enabled="True" filename="%APP_PATH%..\filters\by_classname\filter_classname_email_attachments.pas">
+                                <task classname="TCommandTask_FileTypeAnalysis" caption="Signature Analysis" enabled="True"/>
+                                <!-- CSV -->
+                                <task classname="TCommandTask_ExportEntryList" caption="CSV - List of Email Attachments" enabled="True" filename="%CASE_PATH%Reports\List of Email Attachments.csv">
+                                    <colhandler name="ExportEntryList" ver="44">
+                                        <col class="TColumnDataStoreField" field_name="SUBJECT">
+                                            <xmldata color="536870911" color_enabled="False" color_functionname="" font_enabled="False" font_functionname="" font_color="536870911" font_style="0" image_functionname="" image_enbabled="False" formatstring="%s" issearchable="True" style="0" header="Subject" header_alignment="0" alignment="0" sort="0" sortmode="0" width="500" minwidth="0" maxwidth="2048" visible="True" index="4" maxdate="1899-12-30T00:00:00Z" mindate="1899-12-30T00:00:00Z"/>
+                                        </col>
+                                        <col class="TColumnDataStoreField" field_name="SIZE">
+                                            <xmldata color="536870911" color_enabled="False" color_functionname="" font_enabled="False" font_functionname="" font_color="536870911" font_style="0" image_functionname="" image_enbabled="False" formatstring="%d" issearchable="True" style="0" header="Size" header_alignment="0" alignment="1" sort="0" sortmode="0" width="70" minwidth="0" maxwidth="2048" visible="True" index="13" maxdate="1899-12-30T00:00:00Z" mindate="1899-12-30T00:00:00Z"/>
+                                        </col>
+                                        <col class="TColumnDataStoreField" field_name="DIR">
+                                            <xmldata color="536870911" color_enabled="False" color_functionname="" font_enabled="False" font_functionname="" font_color="536870911" font_style="0" image_functionname="" image_enbabled="False" formatstring="%s" issearchable="True" style="0" header="Path" header_alignment="0" alignment="0" sort="0" sortmode="0" width="200" minwidth="0" maxwidth="2048" visible="True" index="14" maxdate="1899-12-30T00:00:00Z" mindate="1899-12-30T00:00:00Z"/>
+                                        </col>
+                                        <col class="TColumnDataStoreField" field_name="ID">
+                                            <xmldata color="536870911" color_enabled="False" color_functionname="" font_enabled="False" font_functionname="" font_color="536870911" font_style="0" image_functionname="" image_enbabled="False" formatstring="%d" issearchable="True" style="0" header="Bates #" header_alignment="0" alignment="1" sort="0" sortmode="0" width="100" minwidth="0" maxwidth="2048" visible="False" index="15" maxdate="1899-12-30T00:00:00Z" mindate="1899-12-30T00:00:00Z"/>
+                                        </col>
+                                    </colhandler>
+                                </task>
+                            </task>
+                        </task>
+                    </task>
+                </task>
+            </task>
+        </task>
+        <!-- SCRIPT: Check log files -->
+        <task classname="TCommandTask_Script" caption="SCRIPT - Check Log Files" enabled="True" filename="%APP_PATH%..\scripts\common\cli_check_log_files.pas" params=""/>
+    </task>
+</TXML>

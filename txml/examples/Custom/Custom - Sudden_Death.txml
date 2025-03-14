@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TXML version="2">
+    <metadata>
+        <title>Sudden Death Investigation</title>
+        <description>Pre-process data for sudden death investigation.</description>
+    </metadata>
+    <task classname="TCommandTask_Root" caption="Root Task">
+        <task classname="TCommandTask_DataStore" caption="FileSystem" module="FileSystem">
+            <task classname="TCommandTask_Parallel" caption="Process in Parallel" enabled="True">
+                <task classname="TCommandTask_SearchforKnownISOTracks" caption="Search for Known ISO Tracks" enabled="True"/>
+                <task classname="TCommandTask_SearchforKnownMBR" caption="Search for Known MBRs">
+                    <task classname="TCommandTask_SearchforKnownFS" caption="Search for FileSystems"/>
+                </task>
+            </task>
+            <!-- SIGNATURE -->
+            <task classname="TCommandTask_FileTypeAnalysis" caption="Signature Analysis" enabled="True"/>
+            <!-- SCRIPT -->
+            <task classname="TCommandTask_Script" caption="SCRIPT - Detect Encrypted Partition" enabled="True" filename="%APP_PATH%..\scripts\encryption\cli_detect_encrypted_partitions.pas"/>
+            <!-- APPLE BACKUP -->
+            <task classname="TCommandTask_AppleBackup" caption="Apple Backup Identify" enabled="True"/>
+            <!-- CSV: ALL FILES -->
+            <task classname="TCommandTask_ExportEntryList" caption="CSV - All Files" enabled="True" filename="%CASE_PATH%Reports\List of All Files.csv"/>
+            <!-- FILTER AND EXPORT CSV: ENCRYPTED FILES -->
+            <task classname="TCommandTask_Filter" caption="FILTER - isEncrypted" enabled="True" filename="%APP_PATH%..\filters\by_is\filter_isencrypted.pas">
+                <task classname="TCommandTask_ExportEntryList" caption="CSV - Encrypted Files" enabled="True" filename="%CASE_PATH%Reports\Encrypted_Files.csv"/>
+            </task>
+            <!-- SCRIPTS: TRIAGE -->
+            <task classname="TCommandTask_Parallel" caption="Process in Parallel" enabled="True">
+                <task classname="TCommandTask_Script" caption="SCRIPT - Triage Registry" enabled="True" filename="%APP_PATH%..\scripts\triage\cli_triage_registry.pas"/>
+                <task classname="TCommandTask_Script" caption="SCRIPT - Triage SAM User Accounts" enabled="True" filename="%APP_PATH%..\scripts\triage\cli_triage_sam_user_accounts.pas"/>
+                <task classname="TCommandTask_Script" caption="SCRIPT - Triage USB Devices" enabled="True" filename="%APP_PATH%..\scripts\triage\cli_triage_usb_devices.pas"/>
+                <task classname="TCommandTask_Script" caption="SCRIPT - Triage File System" enabled="True" filename="%APP_PATH%..\scripts\triage\cli_triage_file_system.pas"/>
+            </task>
+            <!-- REPORT: TRIAGE -->
+            <task classname="TCommandTask_ReportGenerator" caption="Triage Report" template="%APP_PATH%..\report_templates\cli_triage" saveasfile="%CASE_PATH%\reports\triage.pdf" enabled="True" minfilesize="0" maxfilesize="200"/>
+            <!-- SCRIPT: ARTIFACTS -->
+            <task classname="TCommandTask_Script" caption="SCRIPT - Artifacts Browsers" enabled="True" filename="%APP_PATH%..\scripts\artifacts\cli_artifacts_browsers.pas" params="PROCESSALL"/>
+            <task classname="TCommandTask_Script" caption="SCRIPT - Artifacts Carve URLs" enabled="True" filename="%APP_PATH%..\scripts\artifacts\cli_artifacts_carve_urls.pas" params="PROCESSALL"/>
+            <task classname="TCommandTask_Script" caption="SCRIPT - Artifacts Chat" enabled="True" filename="%APP_PATH%..\scripts\artifacts\cli_artifacts_chat.pas" params="PROCESSALL"/>
+            <task classname="TCommandTask_Script" caption="SCRIPT - Artifacts Email" enabled="True" filename="%APP_PATH%..\scripts\artifacts\cli_artifacts_email.pas" params="PROCESSALL"/>
+            <task classname="TCommandTask_Script" caption="SCRIPT - Artifacts GMail Fragments" enabled="True" filename="%APP_PATH%..\scripts\artifacts\cli_artifacts_gmail_fragments.pas" params="PROCESSALL"/>
+            <task classname="TCommandTask_Script" caption="SCRIPT - Artifacts Mobile" enabled="True" filename="%APP_PATH%..\scripts\artifacts\cli_artifacts_mobile.pas" params="PROCESSALL"/>
+            <task classname="TCommandTask_Script" caption="SCRIPT - Artifacts Operating System" enabled="True" filename="%APP_PATH%..\scripts\artifacts\cli_artifacts_operating_system.pas" params="PROCESSALL"/>
+            <task classname="TCommandTask_Script" caption="SCRIPT - Artifacts Operating System MAC" enabled="True" filename="%APP_PATH%..\scripts\artifacts\cli_artifacts_operating_system_mac.pas" params="PROCESSALL"/>
+            <task classname="TCommandTask_Script" caption="SCRIPT - Artifacts Social Media" enabled="True" filename="%APP_PATH%..\scripts\artifacts\cli_artifacts_social_media.pas" params="PROCESSALL"/>
+            <!-- SCRIPT: ARTIFACTS TO CSV -->
+            <task classname="TCommandTask_Script" caption="SCRIPT - Artifacts Export CSV" enabled="True" filename="%APP_PATH%..\scripts\artifacts\cli_artifacts_export_csv.pas" params=""/>
+            <!-- SCRIPT: CREATE GOOGLE EARTH KML -->
+            <task classname="TCommandTask_Script" caption="SCRIPT - Google Earth KML" enabled="True" filename="%APP_PATH%..\scripts\metadata\cli_googleearth_kml_create.pas"/>
+            <!-- FILTER -->
+            <task classname="TCommandTask_Filter" caption="FILTER - Keyword Search" enabled="True" filename="%APP_PATH%..\filters\for_keyword_search\filter_keyword_seach_no_freespace.pas">
+                <!-- KEYWORD SEARCH FROM .TXT FILE -->
+                <task classname="TCommandTask_KeywordSearchExternal" caption="Keyword Search" enabled="True" filelimit="200" searchlimit="100000" searchfileslack="True">
+                    <keywordfiles>
+                        <keywords filename="%APP_PATH%..\keywords\sudden_death.txt" enabled="True"/>
+                    </keywordfiles>
+                    <!-- CSV - KEYWORD SEARCH -->
+                    <task classname="TCommandTask_DataStore" caption="Keyword Search - Filesystem" module="Keywords">
+                        <task classname="TCommandTask_ExportEntryList" caption="CSV - Keyword Search - Filesystem" enabled="true" filename="%CASE_PATH%Reports\Keyword Search - Filesystem.csv">
+                            <!-- CSV - USE SPECIFIC COLUMNS -->
+                            <colhandler name="ExportEntryList" ver="44">
+                                <col class="TColumnDataStoreField" field_name="NAME">
+                                    <xmldata color="536870911" color_enabled="false" color_functionname="" font_enabled="false" font_functionname="" font_color="536870911" font_style="0" image_functionname="" formatstring="%s" issearchable="true" style="0" header="Filename" header_alignment="0" alignment="0" sort="0" sortmode="0" width="250" minwidth="50" maxwidth="2048" visible="true" index="1" maxdate="1899-12-30T00:00:00Z" mindate="1899-12-30T00:00:00Z"/>
+                                </col>
+                                <col class="TColumnDataStoreField" field_name="EXT">
+                                    <xmldata color="536870911" color_enabled="false" color_functionname="" font_enabled="false" font_functionname="" font_color="536870911" font_style="0" image_functionname="" formatstring="%s" issearchable="true" style="0" header="Extension" header_alignment="0" alignment="0" sort="0" sortmode="0" width="60" minwidth="50" maxwidth="2048" visible="true" index="2" maxdate="1899-12-30T00:00:00Z" mindate="1899-12-30T00:00:00Z"/>
+                                </col>
+                                <col class="TColumnDataStoreField" field_name="SEARCHTERM">
+                                    <xmldata color="536870911" color_enabled="false" color_functionname="" font_enabled="false" font_functionname="" font_color="536870911" font_style="0" image_functionname="" formatstring="%s" issearchable="true" style="0" header="Search Term" header_alignment="0" alignment="0" sort="0" sortmode="0" width="107" minwidth="50" maxwidth="2048" visible="true" index="3" maxdate="1899-12-30T00:00:00Z" mindate="1899-12-30T00:00:00Z"/>
+                                </col>
+                                <col class="TColumnDataStoreField" field_name="HITCOUNT">
+                                    <xmldata color="536870911" color_enabled="false" color_functionname="" font_enabled="false" font_functionname="" font_color="536870911" font_style="0" image_functionname="" formatstring="%d" issearchable="true" style="0" header="Hits" header_alignment="0" alignment="0" sort="0" sortmode="0" width="50" minwidth="50" maxwidth="2048" visible="true" index="4" maxdate="1899-12-30T00:00:00Z" mindate="1899-12-30T00:00:00Z"/>
+                                </col>
+                                <col class="TColumnDataStoreField" field_name="DIR">
+                                    <xmldata color="536870911" color_enabled="false" color_functionname="" font_enabled="false" font_functionname="" font_color="536870911" font_style="0" image_functionname="" formatstring="%s" issearchable="true" style="0" header="Path" header_alignment="0" alignment="0" sort="0" sortmode="0" width="200" minwidth="50" maxwidth="2048" visible="true" index="5" maxdate="1899-12-30T00:00:00Z" mindate="1899-12-30T00:00:00Z"/>
+                                </col>
+                                <col class="TColumnDataStoreField" field_name="LOGICAL_SIZE">
+                                    <xmldata color="536870911" color_enabled="false" color_functionname="" font_enabled="false" font_functionname="" font_color="536870911" font_style="0" image_functionname="" formatstring="%d" issearchable="true" style="0" header="Logical Size" header_alignment="0" alignment="0" sort="0" sortmode="0" width="100" minwidth="50" maxwidth="2048" visible="true" index="6" maxdate="1899-12-30T00:00:00Z" mindate="1899-12-30T00:00:00Z"/>
+                                </col>
+                                <col class="TColumnDataStoreField" field_name="MODIFIED_DATE">
+                                    <xmldata color="536870911" color_enabled="false" color_functionname="" font_enabled="false" font_functionname="" font_color="536870911" font_style="0" image_functionname="" formatstring="c" issearchable="true" style="0" header="Modified" header_alignment="0" alignment="0" sort="0" sortmode="0" width="75" minwidth="50" maxwidth="2048" visible="true" index="7" maxdate="1899-12-30T00:00:00Z" mindate="1899-12-30T00:00:00Z"/>
+                                </col>
+                                <col class="TColumnDataStoreField" field_name="CREATED_DATE">
+                                    <xmldata color="536870911" color_enabled="false" color_functionname="" font_enabled="false" font_functionname="" font_color="536870911" font_style="0" image_functionname="" formatstring="c" issearchable="true" style="0" header="Created" header_alignment="0" alignment="0" sort="0" sortmode="0" width="75" minwidth="50" maxwidth="2048" visible="true" index="8" maxdate="1899-12-30T00:00:00Z" mindate="1899-12-30T00:00:00Z"/>
+                                </col>
+                                <col class="TColumnDataStoreField" field_name="ACCESSED_DATE">
+                                    <xmldata color="536870911" color_enabled="false" color_functionname="" font_enabled="false" font_functionname="" font_color="536870911" font_style="0" image_functionname="" formatstring="c" issearchable="true" style="0" header="Accessed" header_alignment="0" alignment="0" sort="0" sortmode="0" width="135" minwidth="50" maxwidth="2048" visible="true" index="9" maxdate="1899-12-30T00:00:00Z" mindate="1899-12-30T00:00:00Z"/>
+                                </col>
+                                <col class="TColumnDataStoreField" field_name="FILE_TYPE">
+                                    <xmldata color="536870911" color_enabled="false" color_functionname="" font_enabled="false" font_functionname="" font_color="536870911" font_style="0" image_functionname="" formatstring="%s" issearchable="true" style="0" header="File Signature" header_alignment="0" alignment="0" sort="0" sortmode="0" width="200" minwidth="50" maxwidth="2048" visible="true" index="10" maxdate="1899-12-30T00:00:00Z" mindate="1899-12-30T00:00:00Z"/>
+                                </col>
+                                <col class="TColumnDataStoreField" field_name="FILE_CAT">
+                                    <xmldata color="536870911" color_enabled="false" color_functionname="" font_enabled="false" font_functionname="" font_color="536870911" font_style="0" image_functionname="" formatstring="%s" issearchable="true" style="0" header="File Category" header_alignment="0" alignment="0" sort="0" sortmode="0" width="70" minwidth="50" maxwidth="2048" visible="true" index="11" maxdate="1899-12-30T00:00:00Z" mindate="1899-12-30T00:00:00Z"/>
+                                </col>
+                            </colhandler>
+                        </task>
+                    </task>
+                </task>
+            </task>
+            <!-- EMAIL -->
+            <task classname="TCommandTask_Filter" caption="Filter - Email by Determined" enabled="true" filename="%APP_PATH%..\filters\by_determined_signature\filter_determined_signature_email.pas">
+                <!-- CSV -->
+                <task classname="TCommandTask_ExportEntryList" caption="CSV - List of Email Files" enabled="true" filename="%CASE_PATH%Reports\List of Email Files.csv"/>
+                <!-- SENDTO -->
+                <task classname="TCommandTask_SendTo" caption="Send To Module" enabled="true" module="Email">
+                    <!-- SEARCH FOR EMAIL -->
+                    <task classname="TCommandTask_SearchforEmails" caption="Search for Emails" enabled="true">
+                        <!-- KEYWORD SEARCH FROM .TXT FILE -->
+                        <task classname="TCommandTask_KeywordSearchExternal" caption="Keyword Search - Email" enabled="true" filelimit="0" searchlimit="0" searchfileslack="true">
+                            <keywordfiles>
+                                <keywords filename="%APP_PATH%..\keywords\sudden_death.txt" enabled="true"/>
+                            </keywordfiles>
+                            <!-- CSV - KEYWORD SEARCH -->
+                            <task classname="TCommandTask_DataStore" caption="Keyword Search Module" module="Keywords">
+                                <!-- FILTER: DONT INCLUDE FOLDERS IN CSV -->
+                                <task classname="TCommandTask_Filter" caption="Filter - Do Not Show Folders" enabled="true" filename="%APP_PATH%..\filters\by_is\filter_isdirectory_exclude.pas">
+                                    <!-- CSV - USE SPECIFIC COLUMNS -->
+                                    <task classname="TCommandTask_ExportEntryList" caption="CSV - Microsoft Outlook - Keyword Search" enabled="true" filename="%CASE_PATH%Reports\Keyword Search - Email.csv">
+                                        <colhandler name="ExportEntryList" ver="44">
+                                            <col class="TColumnDataStoreField" field_name="SEARCHTERM">
+                                                <xmldata color="536870911" color_enabled="false" color_functionname="" font_enabled="false" font_functionname="" font_color="536870911" font_style="0" image_functionname="" image_enbabled="false" formatstring="%s" issearchable="true" style="0" header="Search Term" header_alignment="0" alignment="0" sort="0" sortmode="0" width="200" minwidth="0" maxwidth="2048" visible="true" index="1" maxdate="1899-12-30T00:00:00Z" mindate="1899-12-30T00:00:00Z"/>
+                                            </col>
+                                            <col class="TColumnDataStoreField" field_name="NAME">
+                                                <xmldata color="536870911" color_enabled="false" color_functionname="" font_enabled="false" font_functionname="" font_color="536870911" font_style="0" image_functionname="" image_enbabled="false" formatstring="%s" issearchable="true" style="0" header="Subject" header_alignment="0" alignment="0" sort="0" sortmode="0" width="250" minwidth="0" maxwidth="2048" visible="true" index="2" maxdate="1899-12-30T00:00:00Z" mindate="1899-12-30T00:00:00Z"/>
+                                            </col>
+                                            <col class="TColumnDataStoreField" field_name="HITCOUNT">
+                                                <xmldata color="536870911" color_enabled="false" color_functionname="" font_enabled="false" font_functionname="" font_color="536870911" font_style="0" image_functionname="" image_enbabled="false" formatstring="%d" issearchable="true" style="0" header="Hits" header_alignment="0" alignment="1" sort="0" sortmode="0" width="60" minwidth="0" maxwidth="2048" visible="true" index="3" maxdate="1899-12-30T00:00:00Z" mindate="1899-12-30T00:00:00Z"/>
+                                            </col>
+                                            <col class="TColumnDataStoreField" field_name="ATTACHMENTS">
+                                                <xmldata color="536870911" color_enabled="false" color_functionname="" font_enabled="false" font_functionname="" font_color="536870911" font_style="0" image_functionname="" image_enbabled="false" formatstring="%s" issearchable="true" style="0" header="Attachments" header_alignment="0" alignment="0" sort="0" sortmode="0" width="50" minwidth="0" maxwidth="2048" visible="true" index="4" maxdate="1899-12-30T00:00:00Z" mindate="1899-12-30T00:00:00Z"/>
+                                            </col>
+                                            <col class="TColumnDataStoreField" field_name="TO">
+                                                <xmldata color="536870911" color_enabled="false" color_functionname="" font_enabled="false" font_functionname="" font_color="536870911" font_style="0" image_functionname="" image_enbabled="false" formatstring="%s" issearchable="true" style="0" header="To" header_alignment="0" alignment="0" sort="0" sortmode="0" width="160" minwidth="0" maxwidth="2048" visible="true" index="5" maxdate="1899-12-30T00:00:00Z" mindate="1899-12-30T00:00:00Z"/>
+                                            </col>
+                                            <col class="TColumnDataStoreField" field_name="LOGICAL_SIZE">
+                                                <xmldata color="536870911" color_enabled="false" color_functionname="" font_enabled="false" font_functionname="" font_color="536870911" font_style="0" image_functionname="" image_enbabled="false" formatstring="%d" issearchable="true" style="0" header="Logical Size" header_alignment="0" alignment="1" sort="0" sortmode="0" width="100" minwidth="0" maxwidth="2048" visible="true" index="6" maxdate="1899-12-30T00:00:00Z" mindate="1899-12-30T00:00:00Z"/>
+                                            </col>
+                                            <col class="TColumnDataStoreField" field_name="DIR">
+                                                <xmldata color="536870911" color_enabled="false" color_functionname="" font_enabled="false" font_functionname="" font_color="536870911" font_style="0" image_functionname="" image_enbabled="false" formatstring="%s" issearchable="true" style="0" header="Path" header_alignment="0" alignment="0" sort="0" sortmode="0" width="200" minwidth="0" maxwidth="2048" visible="true" index="7" maxdate="1899-12-30T00:00:00Z" mindate="1899-12-30T00:00:00Z"/>
+                                            </col>
+                                            <col class="TColumnDataStoreField" field_name="CREATED_DATE">
+                                                <xmldata color="536870911" color_enabled="false" color_functionname="" font_enabled="false" font_functionname="" font_color="536870911" font_style="0" image_functionname="" image_enbabled="false" formatstring="c" issearchable="true" style="0" header="Created" header_alignment="0" alignment="0" sort="0" sortmode="0" width="135" minwidth="0" maxwidth="2048" visible="true" index="8" maxdate="1899-12-30T00:00:00Z" mindate="1899-12-30T00:00:00Z"/>
+                                            </col>
+                                            <col class="TColumnDataStoreField" field_name="FILE_TYPE">
+                                                <xmldata color="536870911" color_enabled="false" color_functionname="" font_enabled="false" font_functionname="" font_color="536870911" font_style="0" image_functionname="" image_enbabled="false" formatstring="%s" issearchable="true" style="0" header="File Signature" header_alignment="0" alignment="0" sort="0" sortmode="0" width="200" minwidth="0" maxwidth="2048" visible="true" index="9" maxdate="1899-12-30T00:00:00Z" mindate="1899-12-30T00:00:00Z"/>
+                                            </col>
+                                        </colhandler>
+                                    </task>
+                                </task>
+                            </task>
+                        </task>
+                    </task>
+                </task>
+            </task>
+        </task>
+        <!-- SCRIPT: Check log files -->
+        <task classname="TCommandTask_Script" caption="SCRIPT - Check Log Files" enabled="True" filename="%APP_PATH%..\scripts\common\cli_check_log_files.pas" params=""/>
+    </task>
+</TXML>

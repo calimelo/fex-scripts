@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TXML version="2">
+    <metadata>
+        <title>Acquire to L01</title>
+        <description>Write all files to L01</description>
+    </metadata>
+    <task classname="TCommandTask_Root" caption="Root Task">
+        <task classname="TCommandTask_DataStore" caption="FileSystem" module="FileSystem">
+            <task classname="TCommandTask_Parallel" caption="Process in Parallel" enabled="True">
+                <task classname="TCommandTask_SearchforKnownISOTracks" caption="Search for Known ISO Tracks" enabled="True"/>
+                <task classname="TCommandTask_SearchforKnownMBR" caption="Search for Known MBRs">
+                    <task classname="TCommandTask_SearchforKnownFS" caption="Search for FileSystems"/>
+                </task>
+            </task>
+            <!-- CSV: ALL FILES -->
+            <task classname="TCommandTask_ExportEntryList" caption="CSV - All Files" enabled="True" filename="%CASE_PATH%Reports\List of Files.csv"/>
+            <!-- EXPORT L01 -->
+            <task classname="TCommandTask_ExportFilesL01" caption="Export to L01" enabled="True" filename="%CASE_PATH%Exported\CMD_Line_Export.L01" segmentsize="2000" md5hash="True" sha1hash="True" sha256hash="True" compression="1" dirdata="False" examiner="Investigator" caseno="CMD Line Export" desc=" CMD Line Export" evidno="" notes="L01 Created by Forensic Explorer CMD Line"/>
+        </task>
+        <!-- SCRIPT: Check log files -->
+        <task classname="TCommandTask_Script" caption="Script - Check Log Files" enabled="true" filename="%APP_PATH%..\scripts\common\cli_check_log_files.pas"/>
+    </task>
+</TXML>

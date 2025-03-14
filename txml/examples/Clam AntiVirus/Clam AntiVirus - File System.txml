@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TXML version="2">
+    <metadata>
+        <title>Title</title>
+        <description>Description</description>
+    </metadata>
+    <task classname="TCommandTask_Root" caption="Root Task">
+        <task classname="TCommandTask_DataStore" caption="FileSystem" module="FileSystem">
+            <task classname="TCommandTask_Parallel" caption="Process in Parallel" enabled="True">
+                <task classname="TCommandTask_SearchforKnownISOTracks" caption="Search for Known ISO Tracks" enabled="True"/>
+                <task classname="TCommandTask_SearchforKnownMBR" caption="Search for Known MBRs">
+                    <task classname="TCommandTask_SearchforKnownFS" caption="Search for FileSystems"/>
+                </task>
+            </task>
+            <task classname="TCommandTask_FileTypeAnalysis" caption="Signature Analysis" enabled="True"/>
+            <!-- CLAMAV SCAN -->
+            <task classname="TCommandTask_ClamAV" caption="Clam AV" clamdatabasedir="%APP_PATH%\ClamAV\database" freshclamexe="freshclam.exe" freshclamconf="freshclam.conf" flaginfected="True" flagindex="0" bookmarkinfected="True" insertnewcolumn="True" newcolumnposition="3" maxscansizekb="5120" fastscan="False" pua="False" yara="False" updatedb="False" heuristic="False" enabled="True"/>
+        </task>
+        <!-- SCRIPT: Check log files -->
+        <task classname="TCommandTask_Script" caption="Script - Check Log Files" enabled="true" filename="%APP_PATH%..\scripts\common\cli_check_log_files.pas"/>
+    </task>
+</TXML>

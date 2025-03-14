@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TXML version="2">
+    <metadata>
+        <title>Hash Match Graphics with Random Sample Report</title>
+        <description>Typical application of this txml is for CAM matters.
+            - Identifies encrypted files (including Apple Backup files).
+            - Registry triage.
+            - MD5 hash match against txml hard-coded hashsets.
+            - Option to exclude files.
+            - Produces a report with a random sample of hash matched files from each hash set.
+            - Option to exclude specific files.
+            - Option to blur pictures.</description>
+    </metadata>
+    <task classname="TCommandTask_Root" caption="Root Task">
+        <task classname="TCommandTask_DataStore" caption="FileSystem" module="FileSystem">
+            <task classname="TCommandTask_Parallel" caption="Process in Parallel" enabled="True">
+                <task classname="TCommandTask_SearchforKnownISOTracks" caption="Search for Known ISO Tracks" enabled="True"/>
+                <task classname="TCommandTask_SearchforKnownMBR" caption="Search for Known MBRs">
+                    <task classname="TCommandTask_SearchforKnownFS" caption="Search for FileSystems"/>
+                </task>
+            </task>
+            <!-- SIGNATURE -->
+            <task classname="TCommandTask_FileTypeAnalysis" caption="Signature Analysis" enabled="True"/>
+            <!-- PARALLEL: Registry -->
+            <task classname="TCommandTask_Parallel" caption="Process in Parallel" enabled="True">
+                <task classname="TCommandTask_Script" caption="SCRIPT - Triage Registry" enabled="True" filename="%APP_PATH%..\scripts\triage\cli_triage_registry.pas"/>
+                <task classname="TCommandTask_Script" caption="SCRIPT - Triage SAM User Accounts" enabled="True" filename="%APP_PATH%..\scripts\triage\cli_triage_sam_user_accounts.pas"/>
+            </task>
+            <!-- APPLE BACKUP -->
+            <task classname="TCommandTask_AppleBackup" caption="Apple Backup Identify" enabled="True"/>
+            <!-- FILTER: Is Encrypted -->
+            <task classname="TCommandTask_Filter" caption="FILTER - isEncrypted" enabled="True" filename="%APP_PATH%..\filters\by_is\filter_isencrypted.pas">
+                <task classname="TCommandTask_ExportEntryList" caption="CSV - Encrypted Files" enabled="True" exportemptylist="False" filename="%CASE_PATH%Reports\Encrypted_Files.csv"/>
+                <!-- SCRIPT: Bookmark Encrypted -->
+                <task classname="TCommandTask_Script" caption="SCRIPT - Bookmark Encrypted" enabled="True" filename="%APP_PATH%..\scripts\bookmark\cli_bookmark_tlist.pas" params="&quot;Encrypted&quot;"/>
+            </task>
+            <!-- FILTER: Determined Graphics -->
+            <task classname="TCommandTask_Filter" caption="FILTER - Graphics" enabled="True" filename="%APP_PATH%..\filters\by_determined_signature\filter_determined_signature_graphics.pas">
+                <task classname="TCommandTask_CreateHash" caption="Hash Files" findduplicates="True" forcecalc="True" fuzzy="False" sha1="False" md5="True"/>
+                <!-- HASH MATCH -->
+                <task classname="TCommandTask_MatchHash" caption="Hash Match" enabled="True" hashmethod="0">
+                    <hashsets>
+                        <hashset filename="%APP_PATH%..\hashsets\samples\windows\Edge_Logo.db3" enabled="True"/>
+                        <hashset filename="%APP_PATH%..\hashsets\samples\windows\Misc. Windows.txt" enabled="True"/>
+                        <hashset filename="%APP_PATH%..\hashsets\samples\windows\MS Office Clipart.txt" enabled="True"/>
+                        <hashset filename="%APP_PATH%..\hashsets\samples\windows\Wallpaper_Architecture.db3" enabled="True"/>
+                        <hashset filename="%APP_PATH%..\hashsets\samples\windows\Wallpaper_AU.db3" enabled="True"/>
+                        <hashset filename="%APP_PATH%..\hashsets\samples\windows\Wallpaper_CA.db3" enabled="True"/>
+                        <hashset filename="%APP_PATH%..\hashsets\samples\windows\Wallpaper_GB.db3" enabled="True"/>
+                        <hashset filename="%APP_PATH%..\hashsets\samples\windows\Wallpaper_Landscapes.db3" enabled="True"/>
+                        <hashset filename="%APP_PATH%..\hashsets\samples\windows\Wallpaper_Nature.db3" enabled="True"/>
+                        <hashset filename="%APP_PATH%..\hashsets\samples\windows\Wallpaper_US.db3" enabled="True"/>
+                        <hashset filename="%APP_PATH%..\hashsets\samples\training\op_payback\honey_badger.db3" enabled="True"/>
+                        <hashset filename="%APP_PATH%..\hashsets\samples\training\misc\unicorn.db3" enabled="True"/>
+                    </hashsets>
+                </task>
+                <!-- FILTER: Hash Match -->
+                <task classname="TCommandTask_Filter" caption="FILTER - Hash Match" enabled="True" filename="%APP_PATH%..\filters\by_hash_match\filter_hash_match_any.pas">
+                    <task classname="TCommandTask_ExportEntryList" caption="CSV - Hash Matched - All Files" enabled="True" exportemptylist="False" filename="%CASE_PATH%Reports\Hash Matched - All Files.csv"/>
+                    <!-- SCRIPT: Params = BLUR or BLUR1, EXCLUDE -->
+                    <task classname="TCommandTask_Script" caption="SCRIPT - Bookmark Hash Match" enabled="True" filename="%APP_PATH%..\scripts\bookmark\cli_bookmark_hash_match.pas" params="BLUR6 EXCLUDE"/>
+                </task>
+                <!-- FILTER: "\Hash Match\Hash Matched\" (files used in the report) -->
+                <task classname="TCommandTask_Filter" caption="FILTER - Hash Match" enabled="True" filename="%APP_PATH%..\filters\by_hash_match\filter_hash_match_hash_matched.pas">
+                    <task classname="TCommandTask_ExportEntryList" caption="CSV - Graham" enabled="True" exportemptylist="True" filename="%CASE_PATH%Reports\Hash Matched - Included Files.csv"/>
+                </task>
+            </task>
+            <!-- REPORT -->
+            <task classname="TCommandTask_ReportGenerator" caption="Hash Match Report" template="%APP_PATH%..\report_templates\Hash Match - Rnd_Smp Gal_Lst" saveasfile="%CASE_PATH%\reports\Hash Match - Random Sample.pdf" enabled="True" blurifrequired="True" exportedblurifrequired="True"/>
+        </task>
+        <!-- SCRIPT: Check log files -->
+        <task classname="TCommandTask_Script" caption="SCRIPT - Check Log Files" enabled="True" filename="%APP_PATH%..\scripts\common\cli_check_log_files.pas" params=""/>
+    </task>
+</TXML>

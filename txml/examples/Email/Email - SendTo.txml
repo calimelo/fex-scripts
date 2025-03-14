@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TXML version="2">
+    <metadata>
+        <title>Email - Send To</title>
+        <description>Send email files to the Email module.</description>
+    </metadata>
+    <task classname="TCommandTask_Root" caption="Root Task">
+        <task classname="TCommandTask_DataStore" caption="FileSystem" module="FileSystem">
+            <task classname="TCommandTask_Parallel" enabled="True" caption="Process in Parallel">
+                <task classname="TCommandTask_SearchforKnownISOTracks" enabled="True" caption="Search for Known ISO Tracks"/>
+                <task classname="TCommandTask_SearchforKnownMBR" caption="Search for Known MBRs">
+                    <task classname="TCommandTask_SearchforKnownFS" caption="Search for FileSystems"/>
+                </task>
+            </task>
+            <!-- SIGNATURE -->
+            <task classname="TCommandTask_FileTypeAnalysis" caption="Signature Analysis" enabled="True"/>
+            <!-- FILTER EMAIL -->
+            <task classname="TCommandTask_Filter" caption="FILTER - Email" enabled="True" filename="%APP_PATH%..\filters\by_signature_groups\filter_signature_email.pas">
+                <task classname="TCommandTask_ExportEntryList" caption="CSV - Email Files" enabled="True" filename="%CASE_PATH%Reports\Email_Files.csv"/>
+                <!-- SENDTO -->
+                <task classname="TCommandTask_SendTo" caption="Send To Module" enabled="True" module="Email">
+                    <task classname="TCommandTask_SearchforEmails" caption="Search for Emails" enabled="True"/>
+                    <!-- EMAIL MODULE -->
+                    <task classname="TCommandTask_DataStore" caption="Email Module" module="Email">
+                        <task classname="TCommandTask_ExportEntryList" caption="CSV - Email Module" enabled="True" filename="%CASE_PATH%Reports\Email Module Messages.csv"/>
+                    </task>
+                </task>
+            </task>
+        </task>
+        <!-- SCRIPT: Check log files -->
+        <task classname="TCommandTask_Script" caption="SCRIPT - Check Log Files" enabled="True" filename="%APP_PATH%..\scripts\common\cli_check_log_files.pas" params=""/>
+    </task>
+</TXML>

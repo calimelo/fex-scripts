@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TXML version="2">
+    <metadata>
+        <title>Triage Quick Word Report</title>
+        <description>Run a triage and produce a MSWord report.</description>
+    </metadata>
+    <task classname="TCommandTask_Root" caption="Root Task">
+        <task classname="TCommandTask_DataStore" caption="FileSystem" module="FileSystem">
+            <task classname="TCommandTask_Parallel" caption="Process in Parallel" enabled="True">
+                <task classname="TCommandTask_SearchforKnownISOTracks" caption="Search for Known ISO Tracks" enabled="True"/>
+                <task classname="TCommandTask_SearchforKnownMBR" caption="Search for Known MBRs">
+                    <task classname="TCommandTask_SearchforKnownFS" caption="Search for FileSystems"/>
+                </task>
+            </task>
+            <!-- SIGNATURE -->
+            <task classname="TCommandTask_FileTypeAnalysis" caption="Signature Analysis" enabled="True"/>
+            <!-- SCRIPT: Triage Registry -->
+            <task classname="TCommandTask_Script" caption="SCRIPT - Triage Registry" enabled="True" filename="%APP_PATH%..\scripts\triage\cli_triage_registry.pas"/>
+            <!-- SCRIPT: Triage SAM User Accounts -->
+            <task classname="TCommandTask_Script" caption="SCRIPT - Triage SAM User Accounts" enabled="True" filename="%APP_PATH%..\scripts\triage\cli_triage_sam_user_accounts.pas"/>
+            <!-- SCRIPT: Triage USB Devices -->
+            <task classname="TCommandTask_Script" caption="SCRIPT - Triage USB Devices" enabled="True" filename="%APP_PATH%..\scripts\triage\cli_triage_usb_devices.pas"/>
+            <!-- SCRIPT: Triage File System -->
+            <task classname="TCommandTask_Script" caption="SCRIPT - Triage File System" enabled="True" filename="%APP_PATH%..\scripts\triage\cli_triage_file_system.pas"/>
+            <!-- MSWORD REPORT -->
+            <task classname="TCommandTask_Script" caption="SCRIPT - Triage Quick Word Report" enabled="True" filename="%APP_PATH%..\scripts\word\cli_qwr_triage.pas"/>            
+        </task>
+        <!-- SCRIPT: Check log files -->
+        <task classname="TCommandTask_Script" caption="Script - Check Log Files" enabled="true" filename="%APP_PATH%..\scripts\common\cli_check_log_files.pas"/>
+    </task>
+</TXML>

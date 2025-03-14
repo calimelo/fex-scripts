@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TXML version="2">
+    <metadata>
+        <title>Email - Export Items to L01</title>
+        <description>1. Export all email items to L01.
+            2. Export items that have attachments to L01.
+            3. Export attachments only to L01.
+            Exports are to separate folders.
+            CSV is created for each export in the case Reports folder.</description>
+    </metadata>
+    <task classname="TCommandTask_Root" caption="Root Task">
+        <task classname="TCommandTask_DataStore" caption="FileSystem" module="FileSystem">
+            <task classname="TCommandTask_Parallel" caption="Process in Parallel" enabled="True">
+                <task classname="TCommandTask_SearchforKnownISOTracks" caption="Search for Known ISO Tracks" enabled="True"/>
+                <task classname="TCommandTask_SearchforKnownMBR" caption="Search for Known MBRs">
+                    <task classname="TCommandTask_SearchforKnownFS" caption="Search for FileSystems"/>
+                </task>
+            </task>
+            <!-- SIGNATURE -->
+            <task classname="TCommandTask_FileTypeAnalysis" caption="Signature Analysis" enabled="True"/>
+            <!-- SCRIPT -->
+            <task classname="TCommandTask_Script" caption="SCRIPT - Detect Encrypted Partition" enabled="True" filename="%APP_PATH%..\scripts\encryption\cli_detect_encrypted_partitions.pas"/>
+            <!-- FILTER -->
+            <task classname="TCommandTask_Filter" caption="FILTER - Email by Determined" enabled="True" filename="%APP_PATH%..\filters\by_determined_signature\filter_determined_signature_email.pas">
+                <task classname="TCommandTask_ExportEntryList" caption="CSV - Email Files" enabled="True" filename="%CASE_PATH%Reports\Email Files.csv"/>
+                <!-- SENDTO -->
+                <task classname="TCommandTask_SendTo" caption="Send To Module" enabled="True" module="Email">
+                    <task classname="TCommandTask_DataStore" caption="Email Module" module="Email">
+                        <task classname="TCommandTask_SearchforEmails" caption="Search for Emails" enabled="True"/>
+                        <task classname="TCommandTask_FileTypeAnalysis" caption="Signature Analysis" enabled="True"/>
+                        <task classname="TCommandTask_ExportEntryList" caption="CSV - Email Module Items" enabled="True" filename="%CASE_PATH%Reports\Email - Items All.csv"/>
+                        <!-- EXPORT -->
+                        <task classname="TCommandTask_ExportFilesL01" caption="Export - Email All" enabled="True" filename="%CASE_PATH%Exported\Email_All.L01" segmentsize="20000" md5hash="True" sha1hash="False" sha256hash="False" compression="1" dirdata="False" examiner="Investigator" caseno="" desc="Email with Attachments" evidno="" notes="L01 Created by FEX CLI"/>
+                        <!-- FILTER ITEMS THAT HAVE ATTACHMENTS -->
+                        <task classname="TCommandTask_Filter" caption="FILTER - Items with Attachments" enabled="True" filename="%APP_PATH%..\filters\by_email\filter_email_attachments_and_message.pas">
+                            <task classname="TCommandTask_ExportEntryList" caption="CSV - Items with Attach" enabled="True" filename="%CASE_PATH%Reports\Email - Items with Attachments.csv"/>
+                            <!-- EXPORT -->
+                            <task classname="TCommandTask_ExportFilesL01" caption="Export Items with Attachments" enabled="True" filename="%CASE_PATH%Exported\Items_That_Have_Attachments.L01" segmentsize="20000" md5hash="True" sha1hash="False" sha256hash="False" compression="1" dirdata="False" examiner="Investigator" caseno="" desc="Email - Attachments" evidno="" notes="L01 Created by FEX CLI"/>
+                        </task>
+                        <!-- FILTER ATTACHMENTS ONLY -->
+                        <task classname="TCommandTask_Filter" caption="FILTER - Email with Attachments" enabled="True" filename="%APP_PATH%..\filters\by_email\filter_email_attachments_only.pas">
+                            <task classname="TCommandTask_ExportEntryList" caption="CSV - Email Attachments Only" enabled="True" filename="%CASE_PATH%Reports\Email - Attachments Only.csv"/>
+                            <!-- EXPORT -->
+                            <task classname="TCommandTask_ExportFilesL01" caption="Export Attachments" enabled="True" filename="%CASE_PATH%Exported\Email_Attachments_Only.L01" segmentsize="20000" md5hash="True" sha1hash="False" sha256hash="False" compression="1" dirdata="False" examiner="Investigator" caseno="" desc="Email - Attachments" evidno="" notes="L01 Created by FEX CLI"/>
+                        </task>
+                    </task>
+                </task>
+            </task>
+        </task>
+        <!-- SCRIPT: Check log files -->
+        <task classname="TCommandTask_Script" caption="SCRIPT - Check Log Files" enabled="True" filename="%APP_PATH%..\scripts\common\cli_check_log_files.pas" params=""/>
+    </task>
+</TXML>

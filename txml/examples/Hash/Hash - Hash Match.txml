@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TXML version="2">
+    <metadata>
+        <title>Title</title>
+        <description>Description</description>
+    </metadata>
+    <task classname="TCommandTask_Root" caption="Root Task">
+        <task classname="TCommandTask_DataStore" caption="FileSystem" module="FileSystem">
+            <task classname="TCommandTask_Parallel" caption="Process in Parallel" enabled="True">
+                <task classname="TCommandTask_SearchforKnownISOTracks" caption="Search for Known ISO Tracks" enabled="True"/>
+                <task classname="TCommandTask_SearchforKnownMBR" caption="Search for Known MBRs">
+                    <task classname="TCommandTask_SearchforKnownFS" caption="Search for FileSystems"/>
+                </task>
+            </task>
+            <!-- HASH -->
+            <task classname="TCommandTask_CreateHash" caption="Hash all files" enabled="True" md5="True" sha1="False" sha256="False" crc32="False" fuzzy="False" differential="False" photodna="False" forcecalc="True" findduplicates="False" minfilesize="0" maxfilesize="1024"/>
+            <!-- HASH MATCH -->
+            <task classname="TCommandTask_MatchHash" caption="Hash Match" enabled="True" hashmethod="0">
+                <hashsets>
+                    <hashset filename="%APP_PATH%..\hashsets\samples\training\op_payback\op_payback_crime_scene.db3" enabled="True"/>
+                </hashsets>
+                <!-- BOOKMARK -->
+                <task classname="TCommandTask_Bookmark" caption="Add Bookmarks" enabled="True" fullpathname="My Bookmarks\CLI created this folder"/>
+            </task>
+        </task>
+    </task>
+</TXML>

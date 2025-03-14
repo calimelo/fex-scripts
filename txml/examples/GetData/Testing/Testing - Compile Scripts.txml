@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TXML version="2">
+    <metadata>
+        <title>Compile Scripts</title>
+        <description>Test that CLI scripts compile.</description>
+    </metadata>
+    <task classname="TCommandTask_Root" caption="Root Task">
+        <task classname="TCommandTask_Script" caption="SCRIPT - Compile Scripts" enabled="True" filename="%APP_PATH%..\scripts\testing\cli_compile_scripts.pas" params="&quot;%APP_SCRIPTS%&quot;"/>
+        <task classname="TCommandTask_Script" caption="SCRIPT - Check Log Files" enabled="True" filename="%APP_PATH%..\scripts\common\cli_check_log_files.pas" params=""/>
+    </task>
+</TXML>

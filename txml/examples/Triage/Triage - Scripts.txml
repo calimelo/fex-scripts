@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TXML version="2">
+    <metadata>
+        <title>Title</title>
+        <description>Description</description>
+    </metadata>
+    <task classname="TCommandTask_Root" caption="Root Task">
+        <!-- VERIFY -->
+        <task classname="TCommandTask_VerifyDevice" caption="Verify Device Hashes" enabled="False" md5hash="True" sha1hash="False" sha256hash="False"/>
+        <task classname="TCommandTask_DataStore" caption="FileSystem" module="FileSystem">
+            <task classname="TCommandTask_Parallel" caption="Process in Parallel" enabled="True">
+                <task classname="TCommandTask_SearchforKnownISOTracks" caption="Search for Known ISO Tracks" enabled="True"/>
+                <task classname="TCommandTask_SearchforKnownMBR" caption="Search for Known MBRs">
+                    <task classname="TCommandTask_SearchforKnownFS" caption="Search for FileSystems"/>
+                </task>
+            </task>
+            <!-- SCRIPT -->
+            <task classname="TCommandTask_Script" caption="SCRIPT - Triage Registry" enabled="True" filename="%APP_PATH%..\scripts\triage\cli_triage_registry.pas"/>
+            <task classname="TCommandTask_Script" caption="SCRIPT - Triage SAM User Accounts" enabled="True" filename="%APP_PATH%..\scripts\triage\cli_triage_sam_user_accounts.pas"/>
+            <task classname="TCommandTask_Script" caption="SCRIPT - Triage USB Devices" enabled="True" filename="%APP_PATH%..\scripts\triage\cli_triage_usb_devices.pas"/>
+            <task classname="TCommandTask_Script" caption="SCRIPT - Triage File System" enabled="True" filename="%APP_PATH%..\scripts\triage\cli_triage_file_system.pas"/>
+            <!-- FILTER -->
+            <task classname="TCommandTask_Filter" caption="FILTER - Bookmarks" enabled="True" filename="%APP_PATH%..\filters\by_is\filter_isbookmarked.pas">
+                <task classname="TCommandTask_ExportEntryList" caption="CSV - Bookmarked" enabled="True" filename="%CASE_PATH%Reports\Bookmarked Files.csv"/>
+            </task>
+        </task>
+        <!-- SCRIPT: Check log files -->
+        <task classname="TCommandTask_Script" caption="Script - Check Log Files" enabled="true" filename="%APP_PATH%..\scripts\common\cli_check_log_files.pas"/>
+    </task>
+</TXML>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TXML version="2">
+    <metadata>
+        <title>Title</title>
+        <description>Description</description>
+    </metadata>
+    <task classname="TCommandTask_Root" caption="Root Task">
+        <!-- VERIFY -->
+        <task classname="TCommandTask_VerifyDevice" caption="Verify Device" enabled="True" md5hash="True" sha1hash="False" sha256hash="False"/>
+        <!-- SCRIPT -->
+        <task classname="TCommandTask_Script" caption="SCRIPT - Output Verification Results" enabled="True" filename="%APP_PATH%..\scripts\verify\cli_verify.pas" params="DO_NOT_VERIFY_IN_SCRIPT"/>
+    </task>
+</TXML>

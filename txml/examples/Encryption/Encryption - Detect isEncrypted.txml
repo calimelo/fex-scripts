@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TXML version="2">
+    <metadata>
+        <title>Detect Encrypted Files</title>
+        <description>Detect encrypted files.</description>
+    </metadata>
+    <task classname="TCommandTask_Root" caption="Root Task">
+        <task classname="TCommandTask_DataStore" caption="FileSystem" module="FileSystem">
+            <task classname="TCommandTask_Parallel" caption="Process in Parallel" enabled="True">
+                <task classname="TCommandTask_SearchforKnownISOTracks" caption="Search for Known ISO Tracks" enabled="True"/>
+                <task classname="TCommandTask_SearchforKnownMBR" caption="Search for Known MBRs">
+                    <task classname="TCommandTask_SearchforKnownFS" caption="Search for FileSystems"/>
+                </task>
+            </task>
+            <task classname="TCommandTask_FileTypeAnalysis" caption="Signature Analysis" enabled="True"/>
+            <!-- APPLE BACKUP -->
+            <task classname="TCommandTask_AppleBackup" caption="Apple Backup Identify" enabled="True"/>
+            <!-- FILTER -->
+            <task classname="TCommandTask_Filter" caption="FILTER - isEncrypted" enabled="True" filename="%APP_PATH%..\filters\by_is\filter_isencrypted.pas">
+                <!-- EXPORT CSV -->
+                <task classname="TCommandTask_ExportEntryList" caption="CSV - Encrypted Files" enabled="True" filename="%CASE_PATH%Reports\Encrypted_Files.csv"/>
+            </task>
+        </task>
+        <!-- SCRIPT -->
+        <task classname="TCommandTask_Script" caption="SCRIPT - Check Log Files" enabled="True" filename="%APP_PATH%..\scripts\common\cli_check_log_files.pas" params=""/>
+    </task>
+</TXML>
